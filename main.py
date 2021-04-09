@@ -16,6 +16,11 @@ class BUS():
         print([i.toString() for i in self.bank])
 
     def gen_p_one_arg(self, p, type):
+        """
+        Generating programs with one input.
+        input: DSL program, progrma_type
+        output: list with all programs under this case
+        """
         new_progs = []
         if type is "S":
             for dsl in [Str2Int, Length]:
@@ -25,6 +30,11 @@ class BUS():
         return new_progs
 
     def gen_p_two_args(self, left, right, l_type, r_type):
+        """
+        Generating programs with two inputs.
+        input: DSL program, progrma_type
+        output: list with all programs under this case
+        """
         new_progs = []
         if l_type is "S" and r_type is "S":
             for dsl in [Concat, Contain, Suffixof, Prefixof]:
@@ -38,6 +48,11 @@ class BUS():
 
     def gen_p_three_args(self, left, mid, right, l_type,
                          m_type, r_type):
+        """
+        Generating programs with three inputs.
+        input: DSL program, progrma_type
+        output: list with all programs under this case
+        """
         new_progs = []
         arrg = l_type + m_type + r_type
         if arrg is "SSS":
@@ -52,11 +67,17 @@ class BUS():
             new_progs.append(IndexOf(left, mid, right))
 
     def append_helper(self, old_list, new_list):
+        """
+        heler to append list to another list
+        """
         if new_list is not None:
             for i in new_list:
                 old_list.append(i)
 
     def grow(self):
+        """
+        This function allows to grow new functions under currrent bank
+        """
         new_progs = []
         for trav_1 in self.bank:
             type_1 = get_type(trav_1)
