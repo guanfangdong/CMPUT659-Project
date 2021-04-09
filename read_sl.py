@@ -34,9 +34,7 @@ class ReadSL():
                 if "arg" in lines[0]:
                     self.str_var = lines
                 else:
-                    print(line)
                     indicies = [i for i, x in enumerate(line) if x == '"']
-                    print(indicies)
                     for i in range(0, len(indicies), 2):
                         self.str.append(line[indicies[i]+1:indicies[i+1]])
 
@@ -57,8 +55,8 @@ class ReadSL():
             self.parse_line(i)
 
     def get_attrs(self):
-        return (self.str_var, self.str, self.int_var, 
-            self.int, self.input, self.output)
+        return self.str_var, self.str, self.int_var, \
+            self.int, self.input, self.output
 
 if __name__ == "__main__":
     f = ReadSL("11440431.sl")

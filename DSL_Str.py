@@ -12,6 +12,19 @@ def find_all(a_str, sub):
         yield start
         start += len(sub)
 
+def get_type(c):
+    for i in [Str, StrVar, Replace, Concat, Substr,
+                IteStr, Int2Str, At]:
+        if isinstance(c, i):
+            return "S"
+    for i in [Bool, Equal, Contain, Suffixof, Prefixof]:
+        if isinstance(c, i):
+            return "B"
+    for i in [Int, IntVar, Str2Int, Plus, Minus,
+                Length, IteInt, IndexOf]:
+        if isinstance(c, i):
+            return "I"
+
 
 class Node:
     def getSize(self):
@@ -283,43 +296,43 @@ class IndexOf(Node):
         return self.input_str.interpret(env)[self.start.interpret(env):].index(self.item.interpret(env))
 
 
-file_sexp = parser.sexpFromFile("2171308.sl")
-benchmark_tuple = parser.extract_benchmark(file_sexp)
-(
-    theories,
-    syn_ctx,
-    synth_instantiator,
-    macro_instantiator,
-    uf_instantiator,
-    constraints,
-    grammar_map,
-    forall_vars_map,
-    default_grammar_sfs
-) = benchmark_tuple
+# file_sexp = parser.sexpFromFile("2171308.sl")
+# benchmark_tuple = parser.extract_benchmark(file_sexp)
+# (
+#     theories,
+#     syn_ctx,
+#     synth_instantiator,
+#     macro_instantiator,
+#     uf_instantiator,
+#     constraints,
+#     grammar_map,
+#     forall_vars_map,
+#     default_grammar_sfs
+# ) = benchmark_tuple
 
-sample = f'(str.replace _arg_0 (str.substr _arg_0 1 (str.indexof _arg_0 " " 1)) " ")'
-left_b, right_b = list(find_all(sample, '(')), list(find_all(sample, ')'))
-l = len(left_b)
+# sample = f'(str.replace _arg_0 (str.substr _arg_0 1 (str.indexof _arg_0 " " 1)) " ")'
+# left_b, right_b = list(find_all(sample, '(')), list(find_all(sample, ')'))
+# l = len(left_b)
 
-previous = None
-p = None
+# previous = None
+# p = None
 
-for i in range(l):
-    par_str = sample[left_b[l-i-1]+1: right_b[i]]
-    print(par_str)
-    if previous != None:
-        full = "(%s)" %previous
-        idx = par_str.index(full)
-        removed_str = par_str.replace(full, "OBJECT")
-        print(par_str)
+# for i in range(l):
+#     par_str = sample[left_b[l-i-1]+1: right_b[i]]
+#     print(par_str)
+#     if previous != None:
+#         full = "(%s)" %previous
+#         idx = par_str.index(full)
+#         removed_str = par_str.replace(full, "OBJECT")
+#         print(par_str)
 
-    parts = removed_str.split(" ")
-    if "indexof" in removed_str:
-        if p != None:
-            obj_loc = parts.index("OBJECT")
-            p = IndexOf(Str(parts[1]), Str(parts[2]), Int(parts[3]))
-    previous = par_str
-    print(previous)
+#     parts = removed_str.split(" ")
+#     if "indexof" in removed_str:
+#         if p != None:
+#             obj_loc = parts.index("OBJECT")
+#             p = IndexOf(Str(parts[1]), Str(parts[2]), Int(parts[3]))
+#     previous = par_str
+#     print(previous)
 
 
     # specification, _ = make_specification(synth_funs, theory, syn_ctx, constraints)
