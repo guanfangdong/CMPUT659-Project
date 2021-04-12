@@ -23,7 +23,18 @@ class ReadSL():
         if "constraint" in line:
             indicies = [i for i, x in enumerate(line) if x == '"']
             input = line[indicies[0]+1:indicies[1]]
-            output = line[indicies[2]+1:indicies[3]]
+            try:
+                output = line[indicies[2]+1:indicies[3]]
+            except:
+                right = line.split(")")
+                right = right[-3]
+                try:
+                    output = int(right)
+                except:
+                    if 'true' in right:
+                        output = True
+                    elif 'false' in right:
+                        output = False
             self.input.append(input)
             self.output.append(output)
         else:

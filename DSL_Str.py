@@ -12,18 +12,220 @@ def find_all(a_str, sub):
         yield start
         start += len(sub)
 
+
 def get_type(c):
+    """
+    Input: DSL program
+    Output: str: its type reprsented by "S", "B", "I"
+                means "String", "Boolean", "Int" respectively
+    """
     for i in [Str, StrVar, Replace, Concat, Substr,
-                IteStr, Int2Str, At]:
+              IteStr, Int2Str, At]:
         if isinstance(c, i):
             return "S"
     for i in [Bool, Equal, Contain, Suffixof, Prefixof]:
         if isinstance(c, i):
             return "B"
     for i in [Int, IntVar, Str2Int, Plus, Minus,
-                Length, IteInt, IndexOf]:
+              Length, IteInt, IndexOf]:
         if isinstance(c, i):
             return "I"
+
+
+def get_symbol(c):
+    """
+    Input: DSL program
+    Output: str: its type reprsented by "S", "B", "I"
+                means "String", "Boolean", "Int" respectively
+    """
+    for i in [Str, StrVar, Replace, Concat, Substr,
+              IteStr, Int2Str, At]:
+        if c is i:
+            return "S"
+    for i in [Bool, Equal, Contain, Suffixof, Prefixof]:
+        if c is i:
+            return "B"
+    for i in [Int, IntVar, Str2Int, Plus, Minus,
+              Length, IteInt, IndexOf]:
+        if c is i:
+            return "I"
+
+
+def get_nodes(sign):
+    s = [Str, StrVar, Replace, Concat, Substr,
+         IteStr, Int2Str, At]
+    b = [Bool, Equal, Contain, Suffixof, Prefixof]
+    i = [Int, IntVar, Str2Int, Plus, Minus,
+         Length, IteInt, IndexOf]
+    if sign == "S":
+        return s
+    elif sign == "B":
+        return b
+    elif sign == "I":
+        return i
+    elif sign == "A":
+        return s + b + i
+
+def get_node_str(c):
+    str_s = ["Str", "StrVar", "Replace", "Concat", "Substr",
+         "IteStr", "Int2Str", "At", "Bool", "Equal", 
+         "Contain", "Suffixof", "Prefixof", "Int", "IntVar", 
+         "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
+
+    node = [Str, StrVar, Replace, Concat, Substr,
+         IteStr, Int2Str, At, Bool, Equal, 
+         Contain, Suffixof, Prefixof, Int, IntVar, 
+         Str2Int, Plus, Minus, Length, IteInt, IndexOf]
+
+    for step, i in enumerate(node):
+        if c is i:
+            return str_s[step]
+
+def get_type_str(c):
+    str_s = ["Str", "StrVar", "Replace", "Concat", "Substr",
+         "IteStr", "Int2Str", "At", "Bool", "Equal", 
+         "Contain", "Suffixof", "Prefixof", "Int", "IntVar", 
+         "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
+
+    node = [Str, StrVar, Replace, Concat, Substr,
+         IteStr, Int2Str, At, Bool, Equal, 
+         Contain, Suffixof, Prefixof, Int, IntVar, 
+         Str2Int, Plus, Minus, Length, IteInt, IndexOf]
+
+    for step, i in enumerate(node):
+        if isinstance(c, i):
+            return str_s[step]
+
+def check_type(c):
+    node = [Str, StrVar, Replace, Concat, Substr,
+         IteStr, Int2Str, At, Bool, Equal, 
+         Contain, Suffixof, Prefixof, Int, IntVar, 
+         Str2Int, Plus, Minus, Length, IteInt, IndexOf]
+    for i in node:
+        if isinstance(c, i):
+            return i
+
+def get_str_names():
+    str_s = ["Str", "StrVar", "Replace", "Concat", "Substr",
+         "IteStr", "Int2Str", "At", "Bool", "Equal", 
+         "Contain", "Suffixof", "Prefixof", "Int", "IntVar", 
+         "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
+    return str_s
+
+def get_keys():
+    node = [Replace, Concat, Substr,
+         IteStr, Int2Str, At, Equal, 
+         Contain, Suffixof, Prefixof,
+         Str2Int, Plus, Minus, Length, IteInt, IndexOf]
+    return node
+
+
+def init_phog_probe(str_, strval, int_, bool_):
+
+    s = get_nodes("S")
+    b = get_nodes("B")
+    int = get_nodes("I")
+
+    s_len, b_len, i_len = len(s), len(b), len(int)
+
+    phog_probe = {}
+
+    repl_dict = {}
+    conc_dict = {}
+    contain_dict = {}
+    suff_dict = {}
+    pref_dict = {}
+    substr_dict = {}
+    itestr_dict = {}
+    int2str_dict = {}
+    at_dict = {}
+    equal_dict = {}
+    plus_dict = {}
+    minus_dict = {}
+    str2int_dict = {}
+    length_dict = {}
+    iteint_dict = {}
+    indexof_dict = {}
+
+    for i in s:
+        for j in s:
+            for k in s:
+                repl_dict[(i, j, k)] = 0
+
+    for i in s:
+        for j in s:
+            conc_dict[(i, j)] = 0
+            contain_dict[(i, j)] = 0
+            suff_dict[(i, j)] = 0
+            pref_dict[(i, j)] = 0
+
+    for each_s in s:
+        for j in int:
+            for k in int:
+                substr_dict[(each_s, j, k)] = 0
+
+    for i in b:
+        for j in s:
+            for k in s:
+                itestr_dict[(i,j,k)] = 0
+
+    for each_i in int :
+        int2str_dict[(each_i)] = 0
+
+    for each_s in s:
+        for j in int:
+            at_dict[(each_s,j)] = 0
+
+    for each_i_1 in int:
+        for each_i_2 in int:
+            equal_dict[(each_i_1, each_i_2)] = 0
+            plus_dict[(each_i_1, each_i_2)] = 0
+            minus_dict[(each_i_1, each_i_2)] = 0
+
+    for i in s:
+        str2int_dict[(i)] = 0
+        length_dict[(i)] = 0
+
+    for each_b in b:
+        for j in int:
+            for k in int:
+                iteint_dict[(each_b,j,k)] = 0
+
+    for each_s in s:
+        for j in s:
+            for k in int:
+                indexof_dict[(each_s,j,k)] = 0
+
+
+    phog_probe[Replace] = repl_dict
+    phog_probe[Concat] = conc_dict
+    phog_probe[Contain] = contain_dict
+    phog_probe[Suffixof] = suff_dict
+    phog_probe[Prefixof] = pref_dict
+    phog_probe[Substr] = substr_dict
+    phog_probe[IteStr] = itestr_dict
+    phog_probe[Int2Str] = int2str_dict
+    phog_probe[At] = at_dict
+    phog_probe[Equal] = equal_dict
+    phog_probe[Plus] = plus_dict
+    phog_probe[Minus] = minus_dict
+    phog_probe[Str2Int] = str2int_dict
+    phog_probe[Length] = length_dict
+    phog_probe[IteInt] = iteint_dict
+    phog_probe[IndexOf] = indexof_dict
+    for i in str_ + strval + int_ + bool_:
+        phog_probe[i] = {(i):0}
+
+
+    num = 0
+    for i in phog_probe.keys():
+        num += len(phog_probe[i].keys())
+    
+    for i in phog_probe.keys():
+        for j in phog_probe[i].keys():
+            phog_probe[i][j] = 1/num
+
+    return phog_probe
 
 
 class Node:
@@ -290,10 +492,174 @@ class IndexOf(Node):
         self.start = start
 
     def toString(self):
-        return "%s.IndexOf(%s, %s)" (self.input_str.toString(), self.item.toString(), self.start.toString())
+        return "%s.IndexOf(%s, %s)" %(self.input_str.toString(), self.item.toString(), self.start.toString())
 
     def interpret(self, env):
         return self.input_str.interpret(env)[self.start.interpret(env):].index(self.item.interpret(env))
+
+
+class GetInside():
+    def __init__(self):
+        self.parent = []
+        self.child = []
+
+    def get_parts(self, p):
+        
+        if isinstance(p, Replace):
+            self.parent.append(Replace)
+            left, mid, right = p.str, p.old, p.new
+            l_type, m_type, r_type = check_type(left), check_type(mid), \
+                                check_type(right)
+            self.child.append([l_type, m_type, r_type])
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, Concat):
+            self.parent.append(Concat)
+            left, right = p.x, p.y
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Substr):
+            self.parent.append(Substr)
+            left, mid, right = p.str, p.start, p.end
+            l_type, m_type, r_type = check_type(left), check_type(mid), \
+                                check_type(right)
+            self.child.append([l_type, m_type, r_type])
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, IteStr):
+            self.parent.append(IteStr)
+            left, mid, right = p.condition, p.true_case, p.false_case
+            l_type, m_type, r_type = check_type(left), check_type(mid), \
+                                check_type(right)
+            self.child.append([l_type, m_type, r_type])
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, Int2Str):
+            self.parent.append(Int2Str)
+            left = p.int
+            l_type = check_type(left)
+            self.child.append([l_type])
+            self.get_parts(left)
+
+        elif isinstance(p, At):
+            self.parent.append(At)
+            left, right = p.str, p.pos
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Equal):
+            self.parent.append(Equal)
+            left, right = p.int_left, p.int_right
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Contain):
+            self.parent.append(Contain)
+            left, right = p.str, p.item
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Suffixof):
+            self.parent.append(Suffixof)
+            left, right = p.str, p.item
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Prefixof):
+            self.parent.append(Prefixof)
+            left, right = p.str, p.item
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Str2Int):
+            self.parent.append(Str2Int)
+            left = p.str
+            l_type = check_type(left)
+            self.child.append([l_type])
+            self.get_parts(left)
+
+        elif isinstance(p, Equal):
+            self.parent.append(Equal)
+            left, right = p.left, p.right
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Minus):
+            self.parent.append(Minus)
+            left, right = p.left, p.right
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Length):
+            self.parent.append(Length)
+            left = p.str
+            l_type = check_type(left)
+            self.child.append([l_type])
+            self.get_parts(left)
+
+        elif isinstance(p, IteInt):
+            self.parent.append(IteInt)
+            left, mid, right = p.condition, p.true_case, p.false_case
+            l_type, m_type, r_type = check_type(left), check_type(mid), \
+                                check_type(right)
+            self.child.append([l_type, m_type, r_type])
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, IndexOf):
+            self.parent.append(IndexOf)
+            left, mid, right = p.input_str, p.item, p.start
+            l_type, m_type, r_type = check_type(left), check_type(mid), \
+                                check_type(right)
+            self.child.append([l_type, m_type, r_type])
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, Str):
+            self.parent.append(p)
+            self.child.append([p])
+
+        elif isinstance(p, StrVar):
+            self.parent.append(p)
+            self.child.append([p])
+
+        elif isinstance(p, Bool):
+            self.parent.append(p)
+            self.child.append([p])
+
+        elif isinstance(p, Int):
+            self.parent.append(p)
+            self.child.append([p])
+
+        elif isinstance(p, IntVar):
+            self.parent.append(p)
+            self.child.append([p])
+
 
 
 # file_sexp = parser.sexpFromFile("2171308.sl")
@@ -333,7 +699,6 @@ class IndexOf(Node):
 #             p = IndexOf(Str(parts[1]), Str(parts[2]), Int(parts[3]))
 #     previous = par_str
 #     print(previous)
-
 
     # specification, _ = make_specification(synth_funs, theory, syn_ctx, constraints)
     # program = Length(Replace(Str('a < 4 and a > 0'), Str('<'), Str('')))
