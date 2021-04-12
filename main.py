@@ -24,6 +24,7 @@ class BUS():
         self.bank_type = []
         self.bank_state_type = []
         self.bank_cost = self.init_bank_cost()
+        self.all_result = set()
 
     def init_bank_cost(self):
         bank_cost = []
@@ -140,6 +141,7 @@ class BUS():
         self.bank_type = []
         self.bank_state_type = []
         self.bank_cost = self.init_bank_cost()
+        self.all_result = set()
 
 
     def grow(self, prev_cost):
@@ -342,10 +344,12 @@ class BUS():
         #                 type_1, type_2, type_3))
         return new_progs, min_cost
 
-    def synthesize(self, debug):
+    def synthesize(self, debug, weak_detect):
         prev_cost = 11
         idx_subsets = self.subset_collection(self.io_list)
         print(idx_subsets)
+
+        cont = True
 
         for level in range(self.bound):
             print("current level is %d" % level)
@@ -354,13 +358,20 @@ class BUS():
                 try:
                     io_len = len(self.io_list)
                     match_idx = []
+                    one_result = ""
                     for step, io in enumerate(self.io_list):
                         result = p.interpret(io)
+                        one_result += str(result)
                         if result == io["out"]:
                             match_idx.append(step)
                             io_len -= 1
                 except:
                     pass
+                
+                if tuple(match_idx) == idx_subsets[-1]:
+                    print("Solution found:", p.toString())
+                    return
+
 
                 if tuple(match_idx) in idx_subsets:
 
@@ -389,14 +400,17 @@ class BUS():
                     idx_subsets.remove(tuple(match_idx))
                     self.restart()
                     prev_cost = 11
-
-
-                if io_len == 0:
-                    print("Solution found:", p.toString())
-                    return
-                self.bank.append(p)
-                self.bank_type.append(get_type_str(p))
-                self.bank_cost.append(prev_cost)
+                    
+                if not weak_detect:
+                    self.bank.append(p)
+                    self.bank_type.append(get_type_str(p))
+                    self.bank_cost.append(prev_cost)
+                else:
+                    if one_result not in self.all_result:
+                        self.bank.append(p)
+                        self.bank_type.append(get_type_str(p))
+                        self.bank_cost.append(prev_cost)
+                        self.all_result.add(one_result)
 
             print("current bank length", len(self.bank))
             print(prev_cost)
@@ -419,4 +433,4 @@ if __name__ == "__main__":
         io_list.append(io_pairs)
 
     solver = BUS(bound, str_, int_, str_var, int_var, io_list)
-    solver.synthesize(debug=True)
+    solver.synthesize(debug=True, weak_detect = False)
