@@ -1,3 +1,7 @@
+# This repository is for project of CMPUT 659 in University of Alberta. 
+# The owners are Guanfang Dong and Jiaqi He.
+# For CMPUT 659 students, you should not copy any of code from our work.
+
 import copy
 from parsers import parser
 import re
