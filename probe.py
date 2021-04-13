@@ -19,9 +19,8 @@ class BUS():
         self.bool = [Bool(True), Bool(False)]
         self.io_list = io_list
         self.bank = self.str_ + self.int_ + self.bool + self.str_var + self.int_var
-        self.phog_probe = init_phog_probe(self.str_, self.str_var,
-                                          self.int_, self.bool)
-        self.phog_probe_copy = self.phog_probe.copy()
+        self.probe = init_probe(self.str_, self.str_var, self.int_, self.bool)
+        self.probe_copy = self.probe.copy()
         self.bank_type = []
         self.bank_state_type = []
         self.num_eval = 0
@@ -33,82 +32,30 @@ class BUS():
         bank_cost = []
         for i in self.bank:
             if isinstance(i, Str):
-                p = self.phog_probe[i][(i)]
+                p = self.probe[i]
                 c = int(-math.log(p, 2))
                 self.bank_type.append("Str")
                 self.bank_state_type.append("S")
                 bank_cost.append(c)
             elif isinstance(i, Int):
-                p = self.phog_probe[i][(i)]
+                p = self.probe[i]
                 c = int(-math.log(p, 2))
                 self.bank_type.append("Int")
                 self.bank_state_type.append("I")
                 bank_cost.append(c)
             elif isinstance(i, Bool):
-                p = self.phog_probe[i][(i)]
+                p = self.probe[i]
                 c = int(-math.log(p, 2))
                 self.bank_type.append("Bool")
                 self.bank_state_type.append("B")
                 bank_cost.append(c)
             elif isinstance(i, StrVar):
-                p = self.phog_probe[i][(i)]
+                p = self.probe[i]
                 self.bank_type.append("StrVar")
                 self.bank_state_type.append("S")
                 c = int(-math.log(p, 2))
                 bank_cost.append(c)
         return bank_cost
-
-    def gen_p_one_arg(self, p, type):
-        """
-        Generating programs with one input.
-        input: DSL program, progrma_type
-        output: list with all programs under this case
-        """
-        new_progs = []
-        if type is "S":
-            for dsl in [Str2Int, Length]:
-                new_progs.append(dsl(p))
-        elif type is "I":
-            new_progs.append(Int2Str(p))
-        return new_progs
-
-    def gen_p_two_args(self, left, right, l_type, r_type):
-        """
-        Generating programs with two inputs.
-        input: DSL program, progrma_type
-        output: list with all programs under this case
-        """
-        new_progs = []
-        if l_type is "S" and r_type is "S":
-            for dsl in [Concat, Contain, Suffixof, Prefixof]:
-                new_progs.append(dsl(left, right))
-        elif l_type is "S" and r_type is "I":
-            new_progs.append(At(left, right))
-        elif l_type is "I" and r_type is "I":
-            for dsl in [Equal, Plus, Minus]:
-                new_progs.append(dsl(left, right))
-        return new_progs
-
-    def gen_p_three_args(self, left, mid, right, l_type,
-                         m_type, r_type):
-        """
-        Generating programs with three inputs.
-        input: DSL program, progrma_type
-        output: list with all programs under this case
-        """
-        new_progs = []
-        arrg = l_type + m_type + r_type
-        if arrg is "SSS":
-            new_progs.append(Replace(left, mid, right))
-        elif arrg is "SII":
-            new_progs.append(Substr(left, mid, right))
-        elif arrg is "BSS":
-            new_progs.append(IteStr(left, mid, right))
-        elif arrg is "BII":
-            new_progs.append(IteInt(left, mid, right))
-        elif arrg is "SSI":
-            new_progs.append(IndexOf(left, mid, right))
-        return new_progs
 
     def append_helper(self, old_list, new_list):
         """
@@ -126,17 +73,13 @@ class BUS():
         return subsets
 
     def normalize_phog_prob(self):
-        fir_keys = self.phog_probe.keys()
+        fir_keys = self.probe.keys()
         sum_possi = 0
         for i in fir_keys:
-            sec_keys = self.phog_probe[i].keys()
-            for j in sec_keys:
-                possi = self.phog_probe[i][j]
-                sum_possi += possi
+            possi = self.probe[i]
+            sum_possi += possi
         for i in fir_keys:
-            sec_keys = self.phog_probe[i].keys()
-            for j in sec_keys:
-                self.phog_probe[i][j] = self.phog_probe[i][j]/sum_possi
+            self.probe[i] = self.probe[i]/sum_possi
 
     def restart(self):
         self.bound = bound
@@ -152,11 +95,11 @@ class BUS():
         """
         new_progs = []
 
-        all_types = np.array(self.bank_type)
+        all_types = np.array(self.bank_state_type)
         np_bank_costs = np.array(self.bank_cost)
         np_bank = np.array(self.bank)
 
-        p_names = get_str_names()
+        p_names = ["S", "B", "I"]
         cost_dict = {}
         same_type_dict = {}
 
@@ -167,6 +110,7 @@ class BUS():
             possi_cost = np.unique(possi_cost)
             cost_dict[i] = possi_cost
 
+
         all_possi_cost = []
         all_possi_candi = []
         all_possi_tcombo = []
@@ -175,62 +119,57 @@ class BUS():
         all_keys = get_keys()
 
         for key in all_keys:
-            s_dict = self.phog_probe[key]
-            contexts = s_dict.keys()
-            if key == contexts:
-                continue
-            for each_c in contexts:
-                try:
-                    c_length = len(each_c)
-                except:
-                    c_length = 1
-                if c_length is 3:
-                    t_1, t_2, t_3 = get_node_str(each_c[0]), \
-                        get_node_str(each_c[1]), get_node_str(each_c[2])
 
-                    p_cost_t1, p_cost_t2, p_cost_t3 = cost_dict[t_1], \
-                        cost_dict[t_2], cost_dict[t_3]
+            key_cost = self.probe[key]
+            key_cost = int(-math.log(key_cost, 2))
 
-                    for p_cost_1 in p_cost_t1:
-                        for p_cost_2 in p_cost_t2:
-                            for p_cost_3 in p_cost_t3:
-                                p_cost = p_cost_1 + p_cost_2 + p_cost_3
-                                context_p = self.phog_probe[key][each_c]
-                                p_cost += int(-math.log(context_p, 2))
+            child_types = get_content_types(key)
+            types_len = len(child_types)
 
-                                all_possi_cost.append(p_cost)
-                                all_possi_candi.append([p_cost_1, p_cost_2,
-                                                        p_cost_3])
-                                all_possi_tcombo.append([t_1, t_2, t_3])
-                                all_possi_init_p.append([key, each_c])
+            if types_len == 3:
+                avail_1, avail_2, avail_3 = cost_dict[child_types[0]], \
+                        cost_dict[child_types[1]], cost_dict[child_types[2]]
+                for cost_1 in avail_1:
+                    for cost_2 in avail_2:
+                        for cost_3 in avail_3:
+                            total_cost = cost_1 + cost_2 + cost_3 + key_cost
+                            candi = [cost_1, cost_2, cost_3]
+                            tcombo = child_types
+                            init_p = key
+                            
+                            all_possi_cost.append(total_cost)
+                            all_possi_candi.append(candi)
+                            all_possi_tcombo.append(tcombo)
+                            all_possi_init_p.append(init_p)
 
-                if c_length is 2:
-                    t_1, t_2 = get_node_str(each_c[0]), get_node_str(each_c[1])
+            elif types_len == 2:
+                avail_1, avail_2 = cost_dict[child_types[0]], \
+                                cost_dict[child_types[1]]
+                for cost_1 in avail_1:
+                    for cost_2 in avail_2:
+                        total_cost = cost_1 + cost_2 + key_cost
+                        candi = [cost_1, cost_2]
+                        tcombo = child_types
+                        init_p = key
+                            
+                        all_possi_cost.append(total_cost)
+                        all_possi_candi.append(candi)
+                        all_possi_tcombo.append(tcombo)
+                        all_possi_init_p.append(init_p)
 
-                    p_cost_t1, p_cost_t2 = cost_dict[t_1], cost_dict[t_2]
-                    for p_cost_1 in p_cost_t1:
-                        for p_cost_2 in p_cost_t2:
-                            p_cost = p_cost_1 + p_cost_2
-                            context_p = self.phog_probe[key][each_c]
-                            p_cost += int(-math.log(context_p, 2))
+            elif types_len == 1:
+                avail_1 = cost_dict[child_types[0]]
+                for cost_1 in avail_1:
+                    total_cost = cost_1 + key_cost
+                    candi = [cost_1]
+                    tcombo = child_types
+                    init_p = key
+                        
+                    all_possi_cost.append(total_cost)
+                    all_possi_candi.append(candi)
+                    all_possi_tcombo.append(tcombo)
+                    all_possi_init_p.append(init_p)
 
-                            all_possi_cost.append(p_cost)
-                            all_possi_candi.append([p_cost_1, p_cost_2])
-                            all_possi_tcombo.append([t_1, t_2])
-                            all_possi_init_p.append([key, each_c])
-
-                if c_length is 1:
-                    t_1 = get_node_str(each_c)
-                    p_cost_t1 = cost_dict[t_1]
-                    for p_cost_1 in p_cost_t1:
-                        p_cost = p_cost_1
-                        context_p = self.phog_probe[key][each_c]
-                        p_cost += int(-math.log(context_p, 2))
-
-                        all_possi_cost.append(p_cost)
-                        all_possi_candi.append([p_cost_1])
-                        all_possi_tcombo.append([t_1])
-                        all_possi_init_p.append([key, [each_c]])
 
         all_possi_cost = np.array(all_possi_cost)
         all_possi_candi = np.array(all_possi_candi)
@@ -257,19 +196,20 @@ class BUS():
 
 
         for i in range(len(all_possi_cost)):
-            base_p = all_possi_init_p[i][0][0]
-            inner_p_list = all_possi_init_p[i][0][1]
+
+            base_p = all_possi_init_p[i][0]
+            child_type = all_possi_tcombo[i][0]
+            child_cost = all_possi_candi[i][0]
 
             p_idx_save = []
 
-            for step, j in enumerate(inner_p_list):
-                str_name = get_node_str(j)
-                type_idx = same_type_dict[str_name]
-                type_cost = all_possi_candi[i][0][step]
+            for step, j in enumerate(child_type):
+                type_idx = same_type_dict[j]
+                type_cost = child_cost[step]
                 all_cost_idx = np.argwhere(np_bank_costs == type_cost)
-
                 all_s_idx = np.intersect1d(all_cost_idx, type_idx)
                 p_idx_save.append(all_s_idx)
+            
 
             p_len = len(p_idx_save)
             if p_len == 3:
@@ -293,6 +233,7 @@ class BUS():
                 for j in p_1:
                     new_p = base_p(j)
                     new_progs.append(new_p)
+            
         return new_progs, min_cost
 
     def synthesize(self, debug, weak_detect):
@@ -331,34 +272,24 @@ class BUS():
                     g.get_parts(p)
                     parent = g.parent
                     solution_size = len(parent)
-                    current_distri = self.phog_probe
-                    init_distri = self.phog_probe_copy
+                    current_distri = self.probe
+                    init_distri = self.probe_copy
                     return solution, self.num_eval, time_usage, \
-                            solution_size, current_distri, init_distri
-                
+                        solution_size, current_distri, init_distri
+
                 if tuple(match_idx) in idx_subsets:
-                    print(tuple(match_idx))
-                    g = GetInside()
+
+                    g = GetInsideProbe()
                     g.get_parts(p)
-                    g.remove_dup()
-                    parent, child = g.parent, g.child
+                    parent = g.parent
                     perc_solve = len(match_idx) / len(self.io_list)
                     for step, i in enumerate(parent):
-                        if len(child[step]) > 1:
-                            new_prob = self.phog_probe[i][tuple(child[step])]
-                        elif len(child[step]) == 1:
-                            new_prob = self.phog_probe[i][child[step][0]]
 
+                        new_prob = self.probe[i]
                         new_prob = new_prob ** (1-perc_solve)
+                        self.probe[i] = new_prob
 
-                        if len(child[step]) > 1:
-                            self.phog_probe[i][tuple(child[step])] = new_prob
-                        elif len(child[step]) == 1:
-                            self.phog_probe[i][child[step][0]] = new_prob
-
-                        
                         print(parent[step])
-                        print(child[step])
                         print(new_prob)
                         print("\n")
 
@@ -370,14 +301,17 @@ class BUS():
                     cont = False
                     prev_cost = 0
 
+                
                 if not weak_detect:
                     self.bank.append(p)
                     self.bank_type.append(get_type_str(p))
+                    self.bank_state_type.append(get_type(p))
                     self.bank_cost.append(prev_cost)
                 else:
                     if one_result not in self.all_result:
                         self.bank.append(p)
                         self.bank_type.append(get_type_str(p))
+                        self.bank_state_type.append(get_type(p))
                         self.bank_cost.append(prev_cost)
                         self.all_result.add(one_result)
 
@@ -385,8 +319,9 @@ class BUS():
             print(prev_cost)
 
 
+
 if __name__ == "__main__":
-    f = ReadSL("count-specific-characters-in-a-cell.sl")
+    f = ReadSL("change-negative-numbers-to-positive.sl")
     str_var, str_, int_var, int_, input, output = f.get_attrs()
 
     bound = 10000
@@ -402,7 +337,7 @@ if __name__ == "__main__":
     solver = BUS(bound, str_, int_, str_var, int_var, io_list)
     solution, num_eval, time_usage, solution_size, current_distri, init_distri = \
         solver.synthesize(debug=True, weak_detect=True)
-    print("num_eval:", num_eval)
     print("solution:", solution)
+    print("num_eval:", num_eval)
     print("time_usage", time_usage)
     print("solution_size", solution_size)

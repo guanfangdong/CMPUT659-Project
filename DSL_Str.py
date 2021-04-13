@@ -1,4 +1,4 @@
-# This repository is for project of CMPUT 659 in University of Alberta. 
+# This repository is for project of CMPUT 659 in University of Alberta.
 # The owners are Guanfang Dong and Jiaqi He.
 # For CMPUT 659 students, you should not copy any of code from our work.
 
@@ -70,58 +70,112 @@ def get_nodes(sign):
     elif sign == "A":
         return s + b + i
 
+
 def get_node_str(c):
     str_s = ["Str", "StrVar", "Replace", "Concat", "Substr",
-         "IteStr", "Int2Str", "At", "Bool", "Equal", 
-         "Contain", "Suffixof", "Prefixof", "Int", "IntVar", 
-         "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
+             "IteStr", "Int2Str", "At", "Bool", "Equal",
+             "Contain", "Suffixof", "Prefixof", "Int", "IntVar",
+             "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
 
     node = [Str, StrVar, Replace, Concat, Substr,
-         IteStr, Int2Str, At, Bool, Equal, 
-         Contain, Suffixof, Prefixof, Int, IntVar, 
-         Str2Int, Plus, Minus, Length, IteInt, IndexOf]
+            IteStr, Int2Str, At, Bool, Equal,
+            Contain, Suffixof, Prefixof, Int, IntVar,
+            Str2Int, Plus, Minus, Length, IteInt, IndexOf]
 
     for step, i in enumerate(node):
         if c is i:
             return str_s[step]
 
+
 def get_type_str(c):
     str_s = ["Str", "StrVar", "Replace", "Concat", "Substr",
-         "IteStr", "Int2Str", "At", "Bool", "Equal", 
-         "Contain", "Suffixof", "Prefixof", "Int", "IntVar", 
-         "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
+             "IteStr", "Int2Str", "At", "Bool", "Equal",
+             "Contain", "Suffixof", "Prefixof", "Int", "IntVar",
+             "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
 
     node = [Str, StrVar, Replace, Concat, Substr,
-         IteStr, Int2Str, At, Bool, Equal, 
-         Contain, Suffixof, Prefixof, Int, IntVar, 
-         Str2Int, Plus, Minus, Length, IteInt, IndexOf]
+            IteStr, Int2Str, At, Bool, Equal,
+            Contain, Suffixof, Prefixof, Int, IntVar,
+            Str2Int, Plus, Minus, Length, IteInt, IndexOf]
 
     for step, i in enumerate(node):
         if isinstance(c, i):
             return str_s[step]
 
+
 def check_type(c):
     node = [Str, StrVar, Replace, Concat, Substr,
-         IteStr, Int2Str, At, Bool, Equal, 
-         Contain, Suffixof, Prefixof, Int, IntVar, 
-         Str2Int, Plus, Minus, Length, IteInt, IndexOf]
+            IteStr, Int2Str, At, Bool, Equal,
+            Contain, Suffixof, Prefixof, Int, IntVar,
+            Str2Int, Plus, Minus, Length, IteInt, IndexOf]
     for i in node:
         if isinstance(c, i):
             return i
 
+
 def get_str_names():
     str_s = ["Str", "StrVar", "Replace", "Concat", "Substr",
-         "IteStr", "Int2Str", "At", "Bool", "Equal", 
-         "Contain", "Suffixof", "Prefixof", "Int", "IntVar", 
-         "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
+             "IteStr", "Int2Str", "At", "Bool", "Equal",
+             "Contain", "Suffixof", "Prefixof", "Int", "IntVar",
+             "Str2Int", "Plus", "Minus", "Length", "IteInt", "IndexOf"]
     return str_s
+
 
 def get_keys():
     node = [Replace, Concat, Substr,
-         IteStr, Int2Str, At, Equal, 
-         Contain, Suffixof, Prefixof,
-         Str2Int, Plus, Minus, Length, IteInt, IndexOf]
+            IteStr, Int2Str, At, Equal,
+            Contain, Suffixof, Prefixof,
+            Str2Int, Plus, Minus, Length, IteInt, IndexOf]
     return node
+
+
+def get_dsl_num(d):
+    has_one = [Int2Str, Str2Int, Length]
+    has_two = [Concat, At, Equal, Contain, Suffixof, Prefixof,
+               Plus, Minus]
+    has_three = [Replace, Substr, IteInt, IteStr, IndexOf]
+    if d in has_one:
+        return 1
+    elif d in has_two:
+        return 2
+    elif d in has_three:
+        return 3
+
+def get_content_types(d):
+    ss_type = [Concat, Contain, Suffixof, Prefixof]
+    sss_type = [Replace]
+    sii_type = [Substr]
+    bss_type = [IteStr]
+    i_type = [Int2Str]
+    si_type = [At]
+    ii_type = [Equal, Plus, Minus]
+    s_type = [Str2Int, Length]
+    bii_type = [IteInt]
+    ssi_type = [IndexOf]
+    
+    map_list = ["SS", "SSS", "SII", "BSS", "I", "SI", "II", 
+                "S", "BII", "SSI"]
+    ALL_types = [ss_type, sss_type, sii_type, bss_type, i_type,
+                    si_type, ii_type, s_type, bii_type, ssi_type]
+    for step, i in enumerate(ALL_types):
+        for j in i:
+            if d is j:
+                return list(map_list[step])
+
+
+
+def init_probe(str_, strval, int_, bool_):
+    all_nodes = get_keys()
+    probe_dict = {}
+    for i in all_nodes:
+        probe_dict[i] = 0
+    for i in str_ + strval + int_ + bool_:
+        probe_dict[i] = 0
+    dict_key = list(probe_dict.keys())
+    dict_len = len(dict_key)
+    for i in dict_key:
+        probe_dict[i] = 1/dict_len
+    return probe_dict
 
 
 def init_phog_probe(str_, strval, int_, bool_):
@@ -171,14 +225,14 @@ def init_phog_probe(str_, strval, int_, bool_):
     for i in b:
         for j in s:
             for k in s:
-                itestr_dict[(i,j,k)] = 0
+                itestr_dict[(i, j, k)] = 0
 
-    for each_i in int :
+    for each_i in int:
         int2str_dict[(each_i)] = 0
 
     for each_s in s:
         for j in int:
-            at_dict[(each_s,j)] = 0
+            at_dict[(each_s, j)] = 0
 
     for each_i_1 in int:
         for each_i_2 in int:
@@ -193,13 +247,12 @@ def init_phog_probe(str_, strval, int_, bool_):
     for each_b in b:
         for j in int:
             for k in int:
-                iteint_dict[(each_b,j,k)] = 0
+                iteint_dict[(each_b, j, k)] = 0
 
     for each_s in s:
         for j in s:
             for k in int:
-                indexof_dict[(each_s,j,k)] = 0
-
+                indexof_dict[(each_s, j, k)] = 0
 
     phog_probe[Replace] = repl_dict
     phog_probe[Concat] = conc_dict
@@ -218,13 +271,12 @@ def init_phog_probe(str_, strval, int_, bool_):
     phog_probe[IteInt] = iteint_dict
     phog_probe[IndexOf] = indexof_dict
     for i in str_ + strval + int_ + bool_:
-        phog_probe[i] = {(i):0}
-
+        phog_probe[i] = {(i): 0}
 
     num = 0
     for i in phog_probe.keys():
         num += len(phog_probe[i].keys())
-    
+
     for i in phog_probe.keys():
         for j in phog_probe[i].keys():
             phog_probe[i][j] = 1/num
@@ -496,7 +548,7 @@ class IndexOf(Node):
         self.start = start
 
     def toString(self):
-        return "%s.IndexOf(%s, %s)" %(self.input_str.toString(), self.item.toString(), self.start.toString())
+        return "%s.IndexOf(%s, %s)" % (self.input_str.toString(), self.item.toString(), self.start.toString())
 
     def interpret(self, env):
         return self.input_str.interpret(env)[self.start.interpret(env):].index(self.item.interpret(env))
@@ -508,12 +560,12 @@ class GetInside():
         self.child = []
 
     def get_parts(self, p):
-        
+
         if isinstance(p, Replace):
             self.parent.append(Replace)
             left, mid, right = p.str, p.old, p.new
             l_type, m_type, r_type = check_type(left), check_type(mid), \
-                                check_type(right)
+                check_type(right)
             self.child.append([l_type, m_type, r_type])
             self.get_parts(left)
             self.get_parts(mid)
@@ -531,7 +583,7 @@ class GetInside():
             self.parent.append(Substr)
             left, mid, right = p.str, p.start, p.end
             l_type, m_type, r_type = check_type(left), check_type(mid), \
-                                check_type(right)
+                check_type(right)
             self.child.append([l_type, m_type, r_type])
             self.get_parts(left)
             self.get_parts(mid)
@@ -541,7 +593,7 @@ class GetInside():
             self.parent.append(IteStr)
             left, mid, right = p.condition, p.true_case, p.false_case
             l_type, m_type, r_type = check_type(left), check_type(mid), \
-                                check_type(right)
+                check_type(right)
             self.child.append([l_type, m_type, r_type])
             self.get_parts(left)
             self.get_parts(mid)
@@ -609,6 +661,14 @@ class GetInside():
             self.get_parts(left)
             self.get_parts(right)
 
+        elif isinstance(p, Plus):
+            self.parent.append(Plus)
+            left, right = p.left, p.right
+            l_type, r_type = check_type(left), check_type(right)
+            self.child.append([l_type, r_type])
+            self.get_parts(left)
+            self.get_parts(right)
+
         elif isinstance(p, Minus):
             self.parent.append(Minus)
             left, right = p.left, p.right
@@ -628,7 +688,7 @@ class GetInside():
             self.parent.append(IteInt)
             left, mid, right = p.condition, p.true_case, p.false_case
             l_type, m_type, r_type = check_type(left), check_type(mid), \
-                                check_type(right)
+                check_type(right)
             self.child.append([l_type, m_type, r_type])
             self.get_parts(left)
             self.get_parts(mid)
@@ -638,7 +698,7 @@ class GetInside():
             self.parent.append(IndexOf)
             left, mid, right = p.input_str, p.item, p.start
             l_type, m_type, r_type = check_type(left), check_type(mid), \
-                                check_type(right)
+                check_type(right)
             self.child.append([l_type, m_type, r_type])
             self.get_parts(left)
             self.get_parts(mid)
@@ -664,7 +724,173 @@ class GetInside():
             self.parent.append(p)
             self.child.append([p])
 
+    def remove_dup(self):
+        zip_list = list(zip(self.parent, self.child))
+        temp_list = []
+        for i in zip_list:
+            append = True
+            for j in temp_list:
+                a = j[0] == i[0]
+                b = j[1] == i[1]
+                if a==True and b==True:
+                    append = False
+                    break
+            if append:
+                temp_list.append(i)
 
+        self.parent = []
+        self.child = []
+        for i in temp_list:
+            self.parent.append(i[0])
+            self.child.append(i[1])
+
+
+class GetInsideProbe():
+    def __init__(self):
+        self.parent = []
+
+    def get_parts(self, p):
+
+        if isinstance(p, Replace):
+            if Replace not in self.parent:
+                self.parent.append(Replace)
+            left, mid, right = p.str, p.old, p.new
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, Concat):
+            if Concat not in self.parent:
+                self.parent.append(Concat)
+            left, right = p.x, p.y
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Substr):
+            if Substr not in self.parent:
+                self.parent.append(Substr)
+            left, mid, right = p.str, p.start, p.end
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, IteStr):
+            if IteStr not in self.parent:
+                self.parent.append(IteStr)
+            left, mid, right = p.condition, p.true_case, p.false_case
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, Int2Str):
+            if Int2Str not in self.parent:
+                self.parent.append(Int2Str)
+            left = p.int
+            self.get_parts(left)
+
+        elif isinstance(p, At):
+            if At not in self.parent:
+                self.parent.append(At)
+            left, right = p.str, p.pos
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Equal):
+            if Equal not in self.parent:
+                self.parent.append(Equal)
+            left, right = p.int_left, p.int_right
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Contain):
+            if Contain not in self.parent:
+                self.parent.append(Contain)
+            left, right = p.str, p.item
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Suffixof):
+            if Suffixof not in self.parent:
+                self.parent.append(Suffixof)
+            left, right = p.str, p.item
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Prefixof):
+            if Prefixof not in self.parent:
+                self.parent.append(Prefixof)
+            left, right = p.str, p.item
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Str2Int):
+            if Str2Int not in self.parent:
+                self.parent.append(Str2Int)
+            left = p.str
+            self.get_parts(left)
+
+        elif isinstance(p, Equal):
+            if Equal not in self.parent:
+                self.parent.append(Equal)
+            left, right = p.left, p.right
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Plus):
+            if Plus not in self.parent:
+                self.parent.append(Plus)
+            left, right = p.left, p.right
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Minus):
+            if Minus not in self.parent:
+                self.parent.append(Minus)
+            left, right = p.left, p.right
+            self.get_parts(left)
+            self.get_parts(right)
+
+        elif isinstance(p, Length):
+            if Length not in self.parent:
+                self.parent.append(Length)
+            left = p.str
+            self.get_parts(left)
+
+        elif isinstance(p, IteInt):
+            if IteInt not in self.parent:
+                self.parent.append(IteInt)
+            left, mid, right = p.condition, p.true_case, p.false_case
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, IndexOf):
+            if IndexOf not in self.parent:
+                self.parent.append(IndexOf)
+            left, mid, right = p.input_str, p.item, p.start
+            self.get_parts(left)
+            self.get_parts(mid)
+            self.get_parts(right)
+
+        elif isinstance(p, Str):
+            if p not in self.parent:
+                self.parent.append(p)
+
+        elif isinstance(p, StrVar):
+            if p not in self.parent:
+                self.parent.append(p)
+
+        elif isinstance(p, Bool):
+            if p not in self.parent:
+                self.parent.append(p)
+
+        elif isinstance(p, Int):
+            if p not in self.parent:
+                self.parent.append(p)
+
+        elif isinstance(p, IntVar):
+            if p not in self.parent:
+                self.parent.append(p)
 
 # file_sexp = parser.sexpFromFile("2171308.sl")
 # benchmark_tuple = parser.extract_benchmark(file_sexp)
