@@ -57,11 +57,14 @@ class ReadSL():
         f = open(self.file_name, "r")
         lines = f.readlines()
         for step, line in enumerate(lines):
+            
             if "ntString String" in line:
                 str_var = lines[step + 1].strip()
                 str = lines[step + 2].strip()
             if "ntInt Int" in line:
                 int_var = lines[step + 1].strip()
+                if int_var != "":
+                    raise Exception
                 int = lines[step + 2].strip()
             if "constraint" in line:
                 io_pair = line.strip()

@@ -245,8 +245,8 @@ class BUS():
         cont = True
 
         for level in range(self.bound):
-            print("current level is %d" % level)
             new_progs, prev_cost = self.grow(prev_cost)
+            print("current level is %d" % level)
             cont = True
             for p in new_progs:
                 if time.time() - self.start_time > self.max_time:
@@ -317,6 +317,8 @@ class BUS():
                         self.bank_state_type.append(get_type(p))
                         self.bank_cost.append(prev_cost)
                         self.all_result.add(one_result)
+                if cont == False:
+                    self.restart()
 
             print("current bank length", len(self.bank))
             print(prev_cost)
@@ -328,7 +330,7 @@ def probe_solver(file_path):
     str_var, str_, int_var, int_, input, output = f.get_attrs()
 
     bound = 10000
-    max_time = 3000
+    max_time = 300
     io_list = []
 
     for step, i in enumerate(input):

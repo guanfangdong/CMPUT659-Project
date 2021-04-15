@@ -1,18 +1,16 @@
-# This repository is for project of CMPUT 659 in University of Alberta.
+# This repository is for project of CMPUT 659 in University of Alberta. 
 # The owners are Guanfang Dong and Jiaqi He.
 # For CMPUT 659 students, you should not copy any of code from our work.
-import time
+
 import numpy as np
 from DSL_Str import *
 from read_sl import ReadSL
 import math
 from itertools import combinations, chain
-from timeout import timeout
 
 
 class BUS():
-    def __init__(self, max_time, bound, str_, int_, str_var, int_var, io_list):
-        self.max_time = max_time
+    def __init__(self, bound, str_, int_, str_var, int_var, io_list):
         self.bound = bound
         self.str_ = [Str(i) for i in str_]
         self.int_ = [Int(i) for i in int_]
@@ -23,13 +21,9 @@ class BUS():
         self.bank = self.str_ + self.int_ + self.bool + self.str_var + self.int_var
         self.phog_probe = init_phog_probe(self.str_, self.str_var,
                                           self.int_, self.bool)
-        self.phog_probe_copy = self.phog_probe.copy()
         self.bank_type = []
         self.bank_state_type = []
-        self.num_eval = 0
         self.bank_cost = self.init_bank_cost()
-        self.all_result = set()
-        self.start_time = time.time()
 
     def init_bank_cost(self):
         bank_cost = []
@@ -141,11 +135,12 @@ class BUS():
                 self.phog_probe[i][j] = self.phog_probe[i][j]/sum_possi
 
     def restart(self):
+        self.bound = bound
         self.bank = self.str_ + self.int_ + self.bool + self.str_var + self.int_var
         self.bank_type = []
         self.bank_state_type = []
         self.bank_cost = self.init_bank_cost()
-        self.all_result = set()
+
 
     def grow(self, prev_cost):
         """
@@ -168,10 +163,27 @@ class BUS():
             possi_cost = np.unique(possi_cost)
             cost_dict[i] = possi_cost
 
+        # s_possi_cost_idx = np.where(all_types == "S")
+        # b_possi_cost_idx = np.where(all_types == "B")
+        # i_possi_cost_idx = np.where(all_types == "I")
+
+        # print(cost_dict)
+
+        # s_possi_cost = np_bank_costs[s_possi_cost_idx]
+        # b_possi_cost = np_bank_costs[b_possi_cost_idx]
+        # i_possi_cost = np_bank_costs[i_possi_cost_idx]
+
         all_possi_cost = []
         all_possi_candi = []
         all_possi_tcombo = []
         all_possi_init_p = []
+
+        # s_possi_cost = np.unique(s_possi_cost)
+        # b_possi_cost = np.unique(b_possi_cost)
+        # i_possi_cost = np.unique(i_possi_cost)
+
+        # cost_dict = {"S": s_possi_cost, "B": b_possi_cost,
+        #              "I": i_possi_cost}
 
         all_keys = get_keys()
 
@@ -191,6 +203,9 @@ class BUS():
 
                     p_cost_t1, p_cost_t2, p_cost_t3 = cost_dict[t_1], \
                         cost_dict[t_2], cost_dict[t_3]
+                    # if (not p_cost_t1) or (not p_cost_t2) \
+                    #         or (not p_cost_t3):
+                    #     continue
 
                     for p_cost_1 in p_cost_t1:
                         for p_cost_2 in p_cost_t2:
@@ -209,6 +224,9 @@ class BUS():
                     t_1, t_2 = get_node_str(each_c[0]), get_node_str(each_c[1])
 
                     p_cost_t1, p_cost_t2 = cost_dict[t_1], cost_dict[t_2]
+                    # if (not p_cost_t1) or (not p_cost_t2):
+                    #     continue
+
                     for p_cost_1 in p_cost_t1:
                         for p_cost_2 in p_cost_t2:
                             p_cost = p_cost_1 + p_cost_2
@@ -223,6 +241,8 @@ class BUS():
                 if c_length is 1:
                     t_1 = get_node_str(each_c)
                     p_cost_t1 = cost_dict[t_1]
+                    # if not p_cost_t1:
+                    #     continue
                     for p_cost_1 in p_cost_t1:
                         p_cost = p_cost_1
                         context_p = self.phog_probe[key][each_c]
@@ -256,8 +276,18 @@ class BUS():
         all_possi_tcombo = all_possi_tcombo[cost_idx]
         all_possi_init_p = all_possi_init_p[cost_idx]
 
+        # all_s_idx = np.intersect1d(min_cost_bank_index,s_possi_cost_idx)
+        # all_b_idx = np.intersect1d(min_cost_bank_index,b_possi_cost_idx)
+        # all_i_idx = np.intersect1d(min_cost_bank_index,i_possi_cost_idx)
+
+        # type_idx_dict = {"S": s_possi_cost_idx, "B": b_possi_cost_idx,
+        #                  "I": i_possi_cost_idx}
 
         for i in range(len(all_possi_cost)):
+            # print(all_possi_cost[i])
+            # print(all_possi_candi[i])
+            # print(all_possi_tcombo[i])
+            # print(all_possi_init_p[i])
             base_p = all_possi_init_p[i][0][0]
             inner_p_list = all_possi_init_p[i][0][1]
 
@@ -294,55 +324,48 @@ class BUS():
                 for j in p_1:
                     new_p = base_p(j)
                     new_progs.append(new_p)
+
+        # for i in new_progs:
+        #     print(i.toString())
+
+        # for trav_1 in self.bank:
+        #     type_1 = get_type(trav_1)
+        #     self.append_helper(new_progs, self.gen_p_one_arg(trav_1, type_1))
+        #     for trav_2 in self.bank:
+        #         type_2 = get_type(trav_2)
+        #         self.append_helper(new_progs, self.gen_p_two_args(
+        #             trav_1, trav_2, type_1, type_2))
+        #         for trav_3 in self.bank:
+        #             type_3 = get_type(trav_3)
+        #             self.append_helper(new_progs, self.gen_p_three_args(
+        #                 trav_1, trav_2, trav_3,
+        #                 type_1, type_2, type_3))
         return new_progs, min_cost
 
-    def synthesize(self, debug, weak_detect):
-        prev_cost = 0
+    def synthesize(self, debug):
+        prev_cost = 11
         idx_subsets = self.subset_collection(self.io_list)
-
-        cont = True
+        print(idx_subsets)
 
         for level in range(self.bound):
-            new_progs, prev_cost = self.grow(prev_cost)
             print("current level is %d" % level)
-            cont = True
+            new_progs, prev_cost = self.grow(prev_cost)
             for p in new_progs:
-                if time.time() - self.start_time > self.max_time:
-                    raise Exception
-                if cont == False:
-                    break
                 try:
                     io_len = len(self.io_list)
                     match_idx = []
-                    one_result = ""
                     for step, io in enumerate(self.io_list):
                         result = p.interpret(io)
-                        one_result += str(result)
                         if result == io["out"]:
                             match_idx.append(step)
                             io_len -= 1
-                    self.num_eval += 1
                 except:
                     pass
 
-                if tuple(match_idx) == idx_subsets[-1]:
-                    solution = p.toString()
-                    current_time = time.time()
-                    time_usage = current_time - self.start_time
-                    g = GetInsideProbe()
-                    g.get_parts(p)
-                    parent = g.parent
-                    solution_size = g.size
-                    current_distri = self.phog_probe
-                    init_distri = self.phog_probe_copy
-                    return solution, self.num_eval, time_usage, \
-                            solution_size, current_distri, init_distri
-                
                 if tuple(match_idx) in idx_subsets:
-                    print(tuple(match_idx))
+
                     g = GetInside()
                     g.get_parts(p)
-                    g.remove_dup()
                     parent, child = g.parent, g.child
                     perc_solve = len(match_idx) / len(self.io_list)
                     for step, i in enumerate(parent):
@@ -356,46 +379,36 @@ class BUS():
                         if len(child[step]) > 1:
                             self.phog_probe[i][tuple(child[step])] = new_prob
                         elif len(child[step]) == 1:
-                            self.phog_probe[i][child[step][0]] = new_prob
+                            self.phog_probe[i][child[step][0]]  = new_prob
 
-                        
-                        print(parent[step])
-                        print(child[step])
+                        self.normalize_phog_prob()
                         print(new_prob)
-                        print("\n")
 
-                    self.normalize_phog_prob()
                     print("partial solution or solution found:",
                           p.toString())
-                    print("cost is:", prev_cost)
-                    print("size is", g.size)
                     idx_subsets.remove(tuple(match_idx))
-                    cont = False
-                    prev_cost = 0
-
-                if not weak_detect:
-                    self.bank.append(p)
-                    self.bank_type.append(get_type_str(p))
-                    self.bank_cost.append(prev_cost)
-                else:
-                    if one_result not in self.all_result:
-                        self.bank.append(p)
-                        self.bank_type.append(get_type_str(p))
-                        self.bank_cost.append(prev_cost)
-                        self.all_result.add(one_result)
-                if cont == False:
                     self.restart()
+                    prev_cost = 11
+
+
+                if io_len == 0:
+                    print("Solution found:", p.toString())
+                    return
+                self.bank.append(p)
+                self.bank_type.append(get_type_str(p))
+                self.bank_cost.append(prev_cost)
 
             print("current bank length", len(self.bank))
             print(prev_cost)
+            # print(self.bank)
+            # print(self.bank_type)
+            # print(self.bank_cost)
 
 
-def phog_probe_solver(file_path):
-    f = ReadSL(file_path)
+if __name__ == "__main__":
+    f = ReadSL("count-line-breaks-in-cell.sl")
     str_var, str_, int_var, int_, input, output = f.get_attrs()
-
-    bound = 10000
-    max_time = 300
+    bound = 1000
     io_list = []
 
     for step, i in enumerate(input):
@@ -405,11 +418,5 @@ def phog_probe_solver(file_path):
         io_pairs["out"] = output[step]
         io_list.append(io_pairs)
 
-    solver = BUS(max_time, bound, str_, int_, str_var, int_var, io_list)
-    solution, num_eval, time_usage, solution_size, current_distri, init_distri = \
-        solver.synthesize(debug=True, weak_detect=True)
-    print("num_eval:", num_eval)
-    print("solution:", solution)
-    print("time_usage", time_usage)
-    print("solution_size", solution_size)
-    return solution, num_eval, time_usage, solution_size, current_distri, init_distri
+    solver = BUS(bound, str_, int_, str_var, int_var, io_list)
+    solver.synthesize(debug=True)

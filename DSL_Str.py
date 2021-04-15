@@ -3,7 +3,6 @@
 # For CMPUT 659 students, you should not copy any of code from our work.
 
 import copy
-from parsers import parser
 import re
 
 
@@ -558,6 +557,7 @@ class GetInside():
     def __init__(self):
         self.parent = []
         self.child = []
+        self.size = 0
 
     def get_parts(self, p):
 
@@ -567,6 +567,7 @@ class GetInside():
             l_type, m_type, r_type = check_type(left), check_type(mid), \
                 check_type(right)
             self.child.append([l_type, m_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -576,6 +577,7 @@ class GetInside():
             left, right = p.x, p.y
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -585,6 +587,7 @@ class GetInside():
             l_type, m_type, r_type = check_type(left), check_type(mid), \
                 check_type(right)
             self.child.append([l_type, m_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -595,6 +598,7 @@ class GetInside():
             l_type, m_type, r_type = check_type(left), check_type(mid), \
                 check_type(right)
             self.child.append([l_type, m_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -604,6 +608,7 @@ class GetInside():
             left = p.int
             l_type = check_type(left)
             self.child.append([l_type])
+            self.size += 1
             self.get_parts(left)
 
         elif isinstance(p, At):
@@ -611,6 +616,7 @@ class GetInside():
             left, right = p.str, p.pos
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -619,6 +625,7 @@ class GetInside():
             left, right = p.int_left, p.int_right
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -627,6 +634,7 @@ class GetInside():
             left, right = p.str, p.item
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -635,6 +643,7 @@ class GetInside():
             left, right = p.str, p.item
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -643,6 +652,7 @@ class GetInside():
             left, right = p.str, p.item
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -651,6 +661,7 @@ class GetInside():
             left = p.str
             l_type = check_type(left)
             self.child.append([l_type])
+            self.size += 1
             self.get_parts(left)
 
         elif isinstance(p, Equal):
@@ -658,6 +669,7 @@ class GetInside():
             left, right = p.left, p.right
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -666,6 +678,7 @@ class GetInside():
             left, right = p.left, p.right
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -674,6 +687,7 @@ class GetInside():
             left, right = p.left, p.right
             l_type, r_type = check_type(left), check_type(right)
             self.child.append([l_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -682,6 +696,7 @@ class GetInside():
             left = p.str
             l_type = check_type(left)
             self.child.append([l_type])
+            self.size += 1
             self.get_parts(left)
 
         elif isinstance(p, IteInt):
@@ -690,6 +705,7 @@ class GetInside():
             l_type, m_type, r_type = check_type(left), check_type(mid), \
                 check_type(right)
             self.child.append([l_type, m_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -700,6 +716,7 @@ class GetInside():
             l_type, m_type, r_type = check_type(left), check_type(mid), \
                 check_type(right)
             self.child.append([l_type, m_type, r_type])
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -707,22 +724,27 @@ class GetInside():
         elif isinstance(p, Str):
             self.parent.append(p)
             self.child.append([p])
+            self.size += 1
 
         elif isinstance(p, StrVar):
             self.parent.append(p)
             self.child.append([p])
+            self.size += 1
 
         elif isinstance(p, Bool):
             self.parent.append(p)
             self.child.append([p])
+            self.size += 1
 
         elif isinstance(p, Int):
             self.parent.append(p)
             self.child.append([p])
+            self.size += 1
 
         elif isinstance(p, IntVar):
             self.parent.append(p)
             self.child.append([p])
+            self.size += 1
 
     def remove_dup(self):
         zip_list = list(zip(self.parent, self.child))
@@ -748,6 +770,7 @@ class GetInside():
 class GetInsideProbe():
     def __init__(self):
         self.parent = []
+        self.size = 0
 
     def get_parts(self, p):
 
@@ -755,6 +778,7 @@ class GetInsideProbe():
             if Replace not in self.parent:
                 self.parent.append(Replace)
             left, mid, right = p.str, p.old, p.new
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -763,6 +787,7 @@ class GetInsideProbe():
             if Concat not in self.parent:
                 self.parent.append(Concat)
             left, right = p.x, p.y
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -770,6 +795,7 @@ class GetInsideProbe():
             if Substr not in self.parent:
                 self.parent.append(Substr)
             left, mid, right = p.str, p.start, p.end
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -778,6 +804,7 @@ class GetInsideProbe():
             if IteStr not in self.parent:
                 self.parent.append(IteStr)
             left, mid, right = p.condition, p.true_case, p.false_case
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -786,12 +813,14 @@ class GetInsideProbe():
             if Int2Str not in self.parent:
                 self.parent.append(Int2Str)
             left = p.int
+            self.size += 1
             self.get_parts(left)
 
         elif isinstance(p, At):
             if At not in self.parent:
                 self.parent.append(At)
             left, right = p.str, p.pos
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -799,6 +828,7 @@ class GetInsideProbe():
             if Equal not in self.parent:
                 self.parent.append(Equal)
             left, right = p.int_left, p.int_right
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -806,6 +836,7 @@ class GetInsideProbe():
             if Contain not in self.parent:
                 self.parent.append(Contain)
             left, right = p.str, p.item
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -813,6 +844,7 @@ class GetInsideProbe():
             if Suffixof not in self.parent:
                 self.parent.append(Suffixof)
             left, right = p.str, p.item
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -820,6 +852,7 @@ class GetInsideProbe():
             if Prefixof not in self.parent:
                 self.parent.append(Prefixof)
             left, right = p.str, p.item
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -827,12 +860,14 @@ class GetInsideProbe():
             if Str2Int not in self.parent:
                 self.parent.append(Str2Int)
             left = p.str
+            self.size += 1
             self.get_parts(left)
 
         elif isinstance(p, Equal):
             if Equal not in self.parent:
                 self.parent.append(Equal)
             left, right = p.left, p.right
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -840,6 +875,7 @@ class GetInsideProbe():
             if Plus not in self.parent:
                 self.parent.append(Plus)
             left, right = p.left, p.right
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -847,6 +883,7 @@ class GetInsideProbe():
             if Minus not in self.parent:
                 self.parent.append(Minus)
             left, right = p.left, p.right
+            self.size += 1
             self.get_parts(left)
             self.get_parts(right)
 
@@ -854,12 +891,14 @@ class GetInsideProbe():
             if Length not in self.parent:
                 self.parent.append(Length)
             left = p.str
+            self.size += 1
             self.get_parts(left)
 
         elif isinstance(p, IteInt):
             if IteInt not in self.parent:
                 self.parent.append(IteInt)
             left, mid, right = p.condition, p.true_case, p.false_case
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -868,6 +907,7 @@ class GetInsideProbe():
             if IndexOf not in self.parent:
                 self.parent.append(IndexOf)
             left, mid, right = p.input_str, p.item, p.start
+            self.size += 1
             self.get_parts(left)
             self.get_parts(mid)
             self.get_parts(right)
@@ -875,22 +915,27 @@ class GetInsideProbe():
         elif isinstance(p, Str):
             if p not in self.parent:
                 self.parent.append(p)
+            self.size += 1
 
         elif isinstance(p, StrVar):
             if p not in self.parent:
                 self.parent.append(p)
+            self.size += 1
 
         elif isinstance(p, Bool):
             if p not in self.parent:
                 self.parent.append(p)
+            self.size += 1
 
         elif isinstance(p, Int):
             if p not in self.parent:
                 self.parent.append(p)
+            self.size += 1
 
         elif isinstance(p, IntVar):
             if p not in self.parent:
                 self.parent.append(p)
+            self.size += 1
 
 # file_sexp = parser.sexpFromFile("2171308.sl")
 # benchmark_tuple = parser.extract_benchmark(file_sexp)
