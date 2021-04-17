@@ -1,0 +1,838 @@
+
+question:0
+Mining US ===> Mining
+Soybean Farming CAN ===> Soybean Farming
+Soybean Farming ===> Soybean Farming
+Oil Extraction US ===> Oil Extraction
+Fishing ===> Fishing
+phog_probe
+solution: _arg_0.replace(concat( , US), ).replace(concat( , CAN), )
+num_eval: 35672
+time usage: 51.86519646644592
+solution_size: 11
+probe
+solution: _arg_0.replace(CAN, US).replace(US.replace(,  ), )
+num_eval: 145052
+time usage: 3.128506660461426
+solution_size: 10
+
+question:1
+AIX 5.1 ===> 5.1
+VMware ESX Server 3.5.0 build-110268 ===> 3.5
+Linux Linux 2.6 Linux ===> 2.6
+Red Hat Enterprise AS 4 <2.6-78.0.13.ELlargesmp> ===> 2.6
+Microsoft <R> Windows <R> 2000 Advanced Server 1.0 ===> 1.0
+Microsoft Windows XP Win2008R2 6.1.7601 ===> 6.1
+probe
+solution: _arg_0.Substr(_arg_0.IndexOf(., 1), concat( , concat( , _arg_0)).IndexOf(., 0))
+num_eval: 1780151
+time usage: 68.9986457824707
+solution_size: 14
+
+question:2
+An example string with _username in it RT _AwesomeUser says _username is awesome ===> username
+An example string with _username in it RT _AwesomeUser says _username is awesome ===> AwesomeUser
+An _example string with _example in it is awesome _example ===> example
+
+question:3
+01/15/2013 ===> 01/2013
+03/07/2011 ===> 03/2011
+05/09/2009 ===> 05/2009
+
+question:4
+dhfjd9999999dfda ===> True
+ddsss999dfdfsfd ===> False
+phog_probe
+solution: _arg_0.Contain(9999999)
+num_eval: 212
+time usage: 0.24303984642028809
+solution_size: 3
+probe
+solution: _arg_0.Contain(9999999)
+num_eval: 223
+time usage: 0.037696123123168945
+solution_size: 3
+
+question:6
+John Doe ===> J Doe
+Mayur Naik ===> M Naik
+Nimit Singh ===> N Singh
+phog_probe
+solution: _arg_0.replace(_arg_0.Substr(1, _arg_0.IndexOf( , 0)), )
+num_eval: 51602
+time usage: 1.9135665893554688
+solution_size: 10
+probe
+solution: _arg_0.replace(_arg_0.Substr(1, _arg_0.IndexOf( , 0)), )
+num_eval: 52080
+time usage: 0.5956952571868896
+solution_size: 10
+
+question:7
+apple apples ===> apple
+an orange among the oranges is a spoiled orange ===> orange
+probe
+solution: _arg_0.Substr(_arg_0.IndexOf( , 0), -1).Substr(1, _arg_0.IndexOf(_arg_0.At(-1), 1))
+num_eval: 523151
+time usage: 13.693062782287598
+solution_size: 15
+
+question:8
+Adf_ROCLeader_BAN_728x90_CPM_STD _BRD _NRT_DCK ===> Adf_ROCLeader_BAN_728x90_CPM_STD _Branding _NRT_DCK
+MMC_ContextualLarRec_BAN_336x280_CPM_STD _LDS _RTG_DCK ===> MMC_ContextualLarRec_BAN_336x280_CPM_STD _Leads _RTG_DCK
+Adf_ROC_DLBD_728x90_CPM_STD_DRS_NRT_NOR_DCK ===> Adf_ROC_DLBD_728x90_CPM_STD_Direct Response_NRT_NOR_DCK
+phog_probe
+solution: _arg_0.replace(DRS, Direct Response).replace(LDS, Leads).replace(BRD, Branding)
+num_eval: 20420
+time usage: 8.325849771499634
+solution_size: 10
+probe
+solution: _arg_0.replace(LDS, Leads).replace(DRS, Direct Response).replace(BRD, Branding)
+num_eval: 86333
+time usage: 1.4463350772857666
+solution_size: 10
+
+question:9
+Dec 2, 2014, 11=23 PM - +91 90000 80000= loren ipsum ===> Dec 2, 2014, 11=23 PM
+Dec 2, 2014, 11=24 PM - +91 90000 80000= loren ===> Dec 2, 2014, 11=24 PM
+phog_probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf(-, 1))
+num_eval: 14649
+time usage: 0.32488036155700684
+solution_size: 7
+probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf(-, 1))
+num_eval: 14495
+time usage: 0.10267138481140137
+solution_size: 7
+
+question:10
+TL-18273982| 10MM ===> TL-18273982
+TL-288762| 76DK ===> TL-288762
+CT-576 ===> CT-576
+N/A ===> N/A
+phog_probe
+solution: _arg_0.Substr(0, concat(_arg_0, |).IndexOf(|, 0))
+num_eval: 20472
+time usage: 126.49231481552124
+solution_size: 9
+probe
+solution: _arg_0.Substr(0, concat(_arg_0, |).IndexOf(|, 0))
+num_eval: 39880
+time usage: 1.810398817062378
+solution_size: 9
+
+question:11
+Tire Pressure ABC123873 Monitor ===> ABC123873
+ Oil Life ABC849999999021 gauge ===> ABC849999999021
+ Air conditioner GHF211 maintenance ===> GHF211
+
+question:12
+General Electric ===> General Electric
+General Electric Inc ===> General Electric
+General Electric Company ===> General Electric
+Microsoft ===> Microsoft
+Microsoft Corporation ===> Microsoft
+Nintendo ===> Nintendo
+Nintendo Enterprises ===> Nintendo
+phog_probe
+solution: _arg_0.replace(concat(, Inc), Company).replace(concat(, Company), Enterprises).replace(concat( , Enterprises), ).replace(concat( , Corporation), )
+num_eval: 1063282
+time usage: 111.19866108894348
+solution_size: 21
+
+question:13
+Name= ABC Retailers ===> ABC Retailers
+ ame= XYZ Suppliers ===> XYZ Suppliers
+phog_probe
+solution: _arg_0.Substr(concat( , concat( , Name)).Length(), _arg_0.Length())
+num_eval: 470199
+time usage: 68.4851541519165
+solution_size: 10
+probe
+solution: _arg_0.Substr(concat( , concat( , Name)).Length(), _arg_0.Length())
+num_eval: 1938260
+time usage: 16.517284393310547
+solution_size: 10
+
+question:14
+C0abc ===> def
+aabc ===> def
+C0dd ===> qwe
+dd ===> qwe
+
+question:15
+http=//www.apple.com/uk/mac ===> mac
+https=//www.microsoft.com/en-gb/windows ===> windows
+https=//www.microsoft.com/ ===> microsoft
+phog_probe
+solution: (if_arg_0.Contain(windows) then windows else (if_arg_0.Contain(microsoft) then microsoft else mac))
+num_eval: 43355
+time usage: 13.881542682647705
+solution_size: 11
+probe
+solution: (if_arg_0.Contain(windows) then windows else (if_arg_0.Contain(microsoft) then microsoft else mac))
+num_eval: 64544
+time usage: 1.1482386589050293
+solution_size: 11
+
+question:16
+ABCDE/FGHI/JKL/MNOPQR ===> MNOPQR
+A/ABCDE/FGHI/JKL ===> JKL
+phog_probe
+solution: _arg_0.Substr(_arg_0.replace(_arg_0.At((-1 + (-1 + (-1 + -1)))), _arg_0).IndexOf(_arg_0.Substr((-1 + -1), _arg_0.Length()), _arg_0.Length()), _arg_0.Length())
+num_eval: 4666757
+time usage: 554.945258140564
+solution_size: 26
+probe
+solution: _arg_0.Substr(_arg_0.Substr(1, -1).Substr((_arg_0.IndexOf(/, 0) - _arg_0.Length()), -1).Length(), _arg_0.Length())
+num_eval: 811541
+time usage: 12.966422080993652
+solution_size: 18
+
+question:17
+ABC ===> D
+ABC ===> BC
+
+question:18
+I love apples ===> I hate bananas
+I love apples ===> I hate bananas
+
+question:19
+thatensures ===> ensures
+thatwill ===> will
+thathave ===> have
+knowthat ===> know
+that ===> that
+mouse ===> mouse
+knowthat ===> know
+phog_probe
+solution: _arg_0.replace(that.replace(_arg_0, ), )
+num_eval: 1631
+time usage: 2.568286657333374
+solution_size: 7
+probe
+solution: _arg_0.replace(that.replace(_arg_0, ), )
+num_eval: 458
+time usage: 0.046128034591674805
+solution_size: 7
+
+question:20
+This is a <string>, It should be <changed> to <a> number. ===> This is a string, It should be changed to a number.
+a < 4 and a > 0 ===> a  4 and a  0
+
+question:21
+This is a line. /delete words in the area /keep this part ===> This is a line. keep this part
+/delete words in the area / ===> 
+
+question:22
+some project,other project ===> True
+some project ===> True
+overhead ===> False
+some project, overhead ===> False
+some project, other, boo ===> True
+phog_probe
+solution: _arg_0.Contain(_arg_0.replace(overhead, some project))
+num_eval: 4047
+time usage: 28.74417281150818
+solution_size: 6
+probe
+solution: _arg_0.Contain(_arg_0.replace(overhead, some project))
+num_eval: 1242
+time usage: 0.29859161376953125
+solution_size: 6
+
+question:23
+Polygonum amphibium ===> Polygonum
+Hippuris vulgaris ===> Hippuris
+Lysimachia vulgaris ===> Lysimachia
+Juncus bulbosus ssp. bulbosus ===> Juncus bulbosus
+Lycopus europaeus ssp. europaeus ===> Lycopus europaeus
+Nymphaea alba ===> Nymphaea
+probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf(concat( , _arg_0.Substr(concat(_arg_0, ssp.).IndexOf(ssp., 0), -1)), 0))
+num_eval: 1490566
+time usage: 80.46304988861084
+solution_size: 17
+
+question:24
+one, 1 ===> one apple
+two, 2 ===> two bananas
+three, 3 ===> three strawberries
+four, 4 ===> four oranges
+
+question:25
+USD.EUR<IDEALPRO,CASH,EUR> ===> EUR
+USD.EUR<IDEALPRO,CASH,USD> ===> USD
+KOR.JPN<IDEALPRO,CASH,WON> ===> WON
+KOR.JPN<IDEALPRO,CASH,YEN> ===> YEN
+phog_probe
+solution: _arg_0.Substr((-1 - (1 + (1 + 1))), -1)
+num_eval: 77544
+time usage: 141.9620485305786
+solution_size: 10
+probe
+solution: _arg_0.Substr((-1 - (1 + (1 + 1))), -1)
+num_eval: 70920
+time usage: 2.01723051071167
+solution_size: 10
+
+question:27
+Traci Brown ===> 1301 Robinson Court
+Mary Hannan ===> 1195 Amethyst Drive
+Linda Thomas ===> 2479 North Bend Road
+
+question:32
+yellow dog on green grass ===> yellow
+Lone dog with a green frisbie on yellow sand ===> yellow
+A yellow sun in a green field ===> yellow
+yellow neon sign with a green background ===> yellow
+
+question:33
+A bird in the hand is worth 2 in the bush. ===> True
+A bird in the hand is worth two in the bush. ===> False
+The 15 shortcuts you simply must know ===> True
+phog_probe
+solution: _arg_0.replace(2, 1).Contain(1)
+num_eval: 2058
+time usage: 8.519785642623901
+solution_size: 6
+probe
+solution: _arg_0.replace(2, 1).Contain(1)
+num_eval: 461
+time usage: 0.12995147705078125
+solution_size: 6
+
+question:34
+yellow dog on green grass ===> yellow
+warm gray sweater ===> yellow
+A yellow sun in a green field ===> yellow
+yellow neon sign with a green background ===> yellow
+
+question:35
+yellow dog on green grass ===> yellow
+warm gray sweater ===> yellow
+blue neon signs ===> blue
+hot pink socks ===> blue
+deep black eyes ===> yellow
+
+question:36
+red ball, green sweater ===> red
+pink ball, green sweater ===> red
+blue sea, pink ribbon ===> red
+black sea, white ribbon ===> red
+red green blue ===> red
+
+question:37
+An apple a day keeps the doctor away ===> apple
+An apple a day keeps the doctor away ===> orange
+Better the devil you know ===> you know
+
+question:38
+yellow ===> True
+gray ===> False
+black ===> False
+blue ===> True
+pink ===> True
+orange ===> True
+turkey ===> False
+probe
+solution: concat(yellow, concat(orange, concat(pink, blue))).Contain(_arg_0)
+num_eval: 52385
+time usage: 1.4319508075714111
+solution_size: 9
+
+question:39
+-%134 ===> %134
+500 ===> 500
+5.125 ===> 5.125
+-%43.00 ===> %43.00
+phog_probe
+solution: _arg_0.replace(-, )
+num_eval: 122
+time usage: 0.14433670043945312
+solution_size: 4
+probe
+solution: _arg_0.replace(-, )
+num_eval: 185
+time usage: 0.01934337615966797
+solution_size: 4
+
+question:40
+801-456-8765 ===> 8014568765
+<978> 654-0299 ===> 9786540299
+978.654.0299 ===> 9786540299
+
+question:41
+apple ===> apple
+orange ===> Orange
+peach ===> peach
+cherry ===> cherrY
+
+question:43
+101 ===> 101
+1002 ===> 1002
+743 ===> 743
+phog_probe
+solution: _arg_0.Str2Int()
+num_eval: 4
+time usage: 0.009919881820678711
+solution_size: 2
+probe
+solution: _arg_0.Str2Int()
+num_eval: 4
+time usage: 0.0009922981262207031
+solution_size: 2
+
+question:44
+7 0 0 5 4 4 ===> 3
+0 0 2 3 3 0 ===> 3
+5 6 4 6 0 7 ===> 4
+0 4 5 0 0 2 ===> 2
+3 0 3 0 1 2 ===> 2
+5 3 2 5 6 1 ===> 6
+
+question:45
+one ===> 1
+one/ntwo ===> 2
+one/ntwo/nthree ===> 3
+probe
+solution: (concat( , _arg_0).Length() - _arg_0.replace(/n,  ).replace(/n,  ).Length())
+num_eval: 4265490
+time usage: 65.17138004302979
+solution_size: 13
+
+question:46
+Hannah ===> n
+Hannah ===> x
+Hannah ===> N
+Hannah ===> a
+Hannah ===> h
+
+question:47
+The fox jumped over the fox ===> fox
+The fox jumped over the fox ===> ox
+The fox jumped over the fox ===> Fox
+
+question:48
+The ===> 3
+The quick fox ===> 13
+The quick  fox ===> 14
+phog_probe
+solution: _arg_0.Length()
+num_eval: 6
+time usage: 0.009920120239257812
+solution_size: 2
+probe
+solution: _arg_0.Length()
+num_eval: 6
+time usage: 0.0009915828704833984
+solution_size: 2
+
+question:49
+humpty dumpty ===> 2
+humpty dumpty sat on a wall, ===> 6
+couldnt put humpty together again. ===> 5
+
+question:50
+brown ===> traci
+thomas ===> linda
+ward ===> jack
+
+question:51
+ayako ===> ogawa
+amy ===> johnson
+tom ===> chang
+
+question:56
+ann chang ===> achang_maaker.com
+bobby smith ===> bobt_sphynx.uk.co
+art lennox ===> art.lennox_svxn.com
+
+question:57
+www.domain.com ===> com
+mail.net ===> net
+www.amaon.co.uk ===> uk
+phog_probe
+solution: _arg_0.Substr((-1 + (-1 + -1)), _arg_0.Length()).replace(., )
+num_eval: 25221
+time usage: 113.57201957702637
+solution_size: 12
+probe
+solution: _arg_0.Substr(((-1 - 1) - 1), _arg_0.Length()).replace(., )
+num_eval: 154744
+time usage: 10.969032049179077
+solution_size: 12
+
+question:58
+year= 2016 ===> 2016
+make= subaru ===> subaru
+model= outback wagon ===> outback wagon
+fuel economy= 25/33 ===> 25/33
+probe
+solution: _arg_0.Substr(((_arg_0.IndexOf(=, 0) - -1) - -1), _arg_0.Length())
+num_eval: 132244
+time usage: 9.386807918548584
+solution_size: 12
+
+question:59
+https=//exceljet.net/catalog ===> exceljet.net/catalog
+https=//microsoft.com ===> microsoft.com
+ftp=//someserver.com ===> someserver.com
+sftp=//127.0.0.1 ===> 127.0.0.1
+probe
+solution: _arg_0.Substr(concat(-1.Int2Str(), _arg_0).IndexOf(/, 0), _arg_0.Length())
+num_eval: 728634
+time usage: 12.536391019821167
+solution_size: 11
+
+question:61
+Jones <60> ===> 60
+Jones <57> ===> 57
+Jones <55> ===> 55
+phog_probe
+solution: _arg_0.Substr((-1 + (-1 + -1)), -1).Str2Int()
+num_eval: 224565
+time usage: 2.875310182571411
+solution_size: 9
+probe
+solution: _arg_0.Substr((-1 + (-1 + -1)), -1).Str2Int()
+num_eval: 224565
+time usage: 1.9091026782989502
+solution_size: 9
+
+question:62
+send email to json_acme.com ===> json_acme.com
+contact help_robot.com for all support requests ===> help_robot.com
+phog_probe
+solution: _arg_0.Substr(_arg_0.IndexOf(_, 4), _arg_0.Length()).Substr(0, _arg_0.IndexOf(., 4))
+num_eval: 370155
+time usage: 399.8570749759674
+solution_size: 14
+probe
+solution: _arg_0.Substr(_arg_0.IndexOf(_, 4), (4 + _arg_0.IndexOf(., 0)))
+num_eval: 403169
+time usage: 5.945052623748779
+solution_size: 12
+
+question:63
+this is a _username in the middle ===> _username
+twitter names look like= _name ===> _name
+with two _name1 and _name2 ===> _name1
+
+question:64
+ann chang ===> achang_maaker.com
+bobby smith ===> bobt_sphynx.uk.co
+art lennox ===> art.lennox_svxn.com
+
+question:65
+https=//abc.com/def ===> https=//abc.com/
+http=//www.abc.com/def/cef ===> http=//www.abc.com
+http=//chandoo.org/wp/def-def ===> http=//chandoo.org/
+
+question:67
+Susan Ann Chang ===> Susan
+Ayako Tanaka ===> Ayako
+Bobby T. smth ===> Bobby
+phog_probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf( , 0))
+num_eval: 3937
+time usage: 0.29462385177612305
+solution_size: 7
+probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf( , 0))
+num_eval: 3875
+time usage: 0.054560184478759766
+solution_size: 7
+
+question:68
+The quick brown fox. ===> The
+quick brown fox. ===> quick
+fox ===> 
+phog_probe
+solution: _arg_0.Substr(0, _arg_0.replace( , _arg_0).IndexOf(_arg_0, 0))
+num_eval: 8163
+time usage: 25.4259352684021
+solution_size: 10
+probe
+solution: _arg_0.Substr(0, _arg_0.replace( , _arg_0).IndexOf(_arg_0, 0))
+num_eval: 7508
+time usage: 0.3893589973449707
+solution_size: 10
+
+question:69
+11/1/2015 - First call/n12/3/2015-order placed/n11/15/2015-follow-up,interested ===> 11/15/2015-follow-up,interested
+11/1/2015 - First call/n12/3/2015-order placed ===> 12/3/2015-order placed
+11/1/2015 - First call ===> 11/1/2015 - First call
+
+question:70
+chang,amy ===> amy,chang
+smith,bobby ===> bobby,smith
+lennox,aaron ===> aaron,lennox
+
+question:71
+Park Kim ===> Kim
+Lee Kim ===> Kim
+Kim Lee ===> Lee
+phog_probe
+solution: _arg_0.Substr((-1 + (-1 + -1)), _arg_0.Length())
+num_eval: 28291
+time usage: 1.1527037620544434
+solution_size: 9
+probe
+solution: _arg_0.Substr((-1 + (-1 + -1)), _arg_0.Length())
+num_eval: 28201
+time usage: 0.298095703125
+solution_size: 9
+
+question:72
+focus on one thing at a time ===> time
+premature opt is the root of all evil ===> evil
+where is life ===> life
+probe
+solution: _arg_0.Substr((((-1 - 1) - 1) - 1), _arg_0.Length())
+num_eval: 90273
+time usage: 1.108062744140625
+solution_size: 11
+
+question:73
+susan ann chang ===> ann
+ayako tanaka ===> 
+bobby t. smith ===> t.
+anthory r. tom brown ===> r. tom
+probe
+solution: _arg_0.Substr(1, -1).Substr(_arg_0.IndexOf( , 0), (-1 + (-1 + (-1 + (-1 + -1)))))
+num_eval: 3596409
+time usage: 93.78857707977295
+solution_size: 18
+
+question:75
+736 miles ===> 736
+1255 miles ===> 1255
+1221 miles ===> 1221
+790 miles ===> 790
+phog_probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf( , 0)).Str2Int()
+num_eval: 16625
+time usage: 0.6904311180114746
+solution_size: 8
+probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf( , 0)).Str2Int()
+num_eval: 16625
+time usage: 0.19839930534362793
+solution_size: 8
+
+question:76
+happy.jpg ===> happy
+pivot table.xls ===> pivot table
+sales data.csv ===> sales data
+invoice3001.xls.pdf ===> invoice3001
+phog_probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf(., 0))
+num_eval: 7940
+time usage: 0.3685281276702881
+solution_size: 7
+probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf(., 0))
+num_eval: 7850
+time usage: 0.09820723533630371
+solution_size: 7
+
+question:77
+  The shawshank ===> The shawshank
+The    godfather ===> The godfather
+    pulp   fiction ===> pulp fiction
+phog_probe
+solution: _arg_0.replace(concat(, ),  ).replace(concat( ,  ), ).replace(concat( ,  ),  ).replace(concat( ,  ), ).replace(concat(,  ), ).replace(concat( ,  ),  )
+num_eval: 103462
+time usage: 155.08520674705505
+solution_size: 31
+
+question:78
+801-345-1987 ===> 8013451987
+612-554-2000 ===> 6125542000
+phog_probe
+solution: _arg_0.replace(-, ).replace(-, )
+num_eval: 5268
+time usage: 0.29065537452697754
+solution_size: 7
+probe
+solution: _arg_0.replace(-, ).replace(-, )
+num_eval: 6017
+time usage: 0.06150412559509277
+solution_size: 7
+
+question:79
+c=/users/dave/shotcut.xls ===> shotcut.xls
+c=/users/dave/formulas.xls ===> formulas.xls
+c=/users/dave/pivot table.xls ===> pivot table.xls
+
+question:80
+zx66448 ===> z
+zx66448 ===> x
+zx66448 ===> 6
+zx66448 ===> 4
+zx66448 ===> 8
+
+question:81
+Trucking Inc. ===> Trucking
+New Truck Inc ===> New Truck
+ABV Trucking Inc, LLC ===> ABV Trucking
+phog_probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf(Inc, 1))
+num_eval: 1099672
+time usage: 278.0207087993622
+solution_size: 7
+
+question:82
+April 1 1799 ===> 1799
+April 11 1867 ===> 1867
+February 12 1806 ===> 1806
+February 21 1798 ===> 1798
+February 28 1844 as Delaware Township ===> 1844
+February 5 1798 ===> 1798
+February 7 1892 Verona Township ===> 1892
+February 9 1797 ===> 1797
+January 19 1748 ===> 1748
+July 10 1721 as Upper Penns Neck Township ===> 1721
+March 15 1860 ===> 1860
+March 17 1870 <as Raritan Township> ===> 1870
+March 17 1874 ===> 1874
+March 23 1864 ===> 1864
+March 5 1867 ===> 1867
+April 28th 1828 ===> 1828
+
+question:83
+2283-332-44543 CAP DDT PPL445_ HEEN PAX 77820 ===> HEEN PAX 77820
+44372-33-3223 TYYTE CAP BOX 1550 244 BOX PPSSA223_ PAX ===> PAX
+PRECISE 77 CLEAR BLUE 99WIE_ BOX 4403 PAX SSKA ===> BOX 4403 PAX SSKA
+probe
+solution: _arg_0.Substr(3.Str2Int(), _arg_0.Length()).Substr(_arg_0.IndexOf(_, 1), _arg_0.Length())
+num_eval: 4682614
+time usage: 41.58064365386963
+solution_size: 13
+
+question:84
+india china japan ===> india china
+indonesia korea ===> indonesia
+phog_probe
+solution: _arg_0.Substr(0, (-1 - _arg_0.IndexOf(_arg_0.At((-1 - _arg_0.IndexOf( , 0))), 0)))
+num_eval: 261822
+time usage: 87.4997968673706
+solution_size: 16
+probe
+solution: _arg_0.Substr(0, (-1 - _arg_0.IndexOf( , _arg_0.IndexOf( , (-1 - _arg_0.IndexOf( , 0))))))
+num_eval: 113412
+time usage: 4.652973175048828
+solution_size: 17
+
+question:85
+geb. 14 oct 1956 Westerkerk HRL ===> Westerkerk HRL
+geb. 14 oct 1956  ===> 
+geb. 15 feb 1987 Westerkerk HRL ===> Westerkerk HRL
+phog_probe
+solution: _arg_0.Substr((-1 + (9.Str2Int() + 9.Str2Int())), _arg_0.Length())
+num_eval: 3970767
+time usage: 181.39848637580872
+solution_size: 11
+probe
+solution: _arg_0.Substr((-1 + (9.Str2Int() + 9.Str2Int())), _arg_0.Length())
+num_eval: 10642025
+time usage: 157.64952611923218
+solution_size: 11
+
+question:86
+R/V<208,0,32> ===> R/V 208 0 32
+R/S<184,28,16> ===> R/S 184 28 16
+R/B<255,88,80> ===> R/B 255 88 80
+
+question:87
+valentine day=1915=50==7.1=45 ===> valentine day
+movie blah=2blahblah, The=1914=54==7.9=17 ===> movie blah=2blahblah, The
+phog_probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf(1, 1))
+num_eval: 57570
+time usage: 0.6720795631408691
+solution_size: 7
+probe
+solution: _arg_0.Substr(0, _arg_0.IndexOf(1, 1))
+num_eval: 56939
+time usage: 0.320911169052124
+solution_size: 7
+
+question:88
+Dec 2, 2014, 11=23 PM - +91 90000 80000= loren ipsum ===> loren ipsum
+Dec 2, 2014, 11=24 PM - +91 90000 80000= loren ===> loren
+probe
+solution: _arg_0.Substr(_arg_0.IndexOf(_arg_0.At(1), _arg_0.IndexOf( , 0)), _arg_0.Length())
+num_eval: 7418341
+time usage: 71.61590361595154
+solution_size: 13
+
+question:89
+Item 1 AQ-S810W-2AVDF ===> AQ-S810W-2AVDF
+Item 2 AQ-230A-1DUQ ===> AQ-230A
+probe
+solution: _arg_0.Substr((_arg_0.IndexOf(-1.Int2Str().Substr(0, 1), 1) - 1), concat(_arg_0, -1.Int2Str()).IndexOf(-1.Int2Str(), 0))
+num_eval: 13230939
+time usage: 559.2599587440491
+solution_size: 20
+
+question:90
+home/Excel/Sheet1.xls ===> Sheet1.xls
+home/user/Sheet1.xls ===> Sheet1.xls
+phog_probe
+solution: _arg_0.Substr(_arg_0.IndexOf(_arg_0.At(0), 1), _arg_0.Length())
+num_eval: 598109
+time usage: 5.713916063308716
+solution_size: 10
+probe
+solution: _arg_0.Substr(_arg_0.IndexOf(_arg_0.At(0), 1), _arg_0.Length())
+num_eval: 597821
+time usage: 4.436221122741699
+solution_size: 10
+
+question:91
+Sarah Jane Jones ===> Jones
+Bob Jane Smithfield ===> Smithfield
+phog_probe
+solution: _arg_0.Substr(_arg_0.replace( , -1.Int2Str()).IndexOf( , 0), _arg_0.Length())
+num_eval: 205059
+time usage: 583.9265186786652
+solution_size: 12
+probe
+solution: _arg_0.Substr(_arg_0.replace( , -1.Int2Str()).IndexOf( , 0), _arg_0.Length())
+num_eval: 166103
+time usage: 4.035948753356934
+solution_size: 12
+
+question:92
+<b>0.66<b> ===> 0.66
+<b>0.409<b> ===> 0.409
+<b>0.7268<b> ===> 0.7268
+phog_probe
+solution: _arg_0.Substr(1, -1).Substr(1, -1).Substr(1, -1)
+num_eval: 974547
+time usage: 9.445321321487427
+solution_size: 10
+probe
+solution: _arg_0.Substr(1, -1).Substr(1, -1).Substr(1, -1)
+num_eval: 975063
+time usage: 8.623450517654419
+solution_size: 10
+
+question:93
+100 apples ===> 100
+the price is %500 dollars ===> 500
+serial number %003399 ===> 003399
+
+question:94
+34653 jim mcdonald ===>  jim mcdonald
+price is 500 ===>  price is 
+100 apples ===>  apples
+probe
+solution: _arg_0.Substr(3, _arg_0.Length()).replace(_arg_0.At(2), _arg_0).Substr(_arg_0.IndexOf( , 3), _arg_0.Length())
+num_eval: 12578614
+time usage: 428.06011176109314
+solution_size: 17
+

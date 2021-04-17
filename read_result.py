@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from DSL_Str import *
+from read_sl import ReadSL
 
 
 def pad_to_dense(M):
@@ -50,15 +51,14 @@ def scatter(title, x_a, x_b, a, b, a_legend, b_legend, x_label, y_label):
     # style
     plt.style.use('seaborn-darkgrid')
 
-    
+    legend2 = plt.scatter(x_b, b, c='g', s=20, label=b_legend,
+               alpha=0.5, edgecolors='none', marker = "o")    
 
     legend1 = plt.scatter(x_a, a, c='b', s=20, label=a_legend,
-               alpha=1, edgecolors='none')
+               alpha=0.5, edgecolors='none', marker = "x")
     
-    legend2 = plt.scatter(x_b, b, c='g', s=20, label=b_legend,
-               alpha=1, edgecolors='none')
 
-    plt.legend([legend1, legend2], [a_legend, b_legend])
+    plt.legend([legend1, legend2], [a_legend, b_legend], loc = 'best')
 
     plt.title(title, loc='left', fontsize=12, fontweight=0, color='orange')
     plt.xlabel(x_label)
@@ -69,7 +69,7 @@ def scatter(title, x_a, x_b, a, b, a_legend, b_legend, x_label, y_label):
 
 
 
-def gen_plot(title, x, a, b, a_legend, b_legend, x_label, y_label):
+def gen_plot(title, x, a, b, a_legend, b_legend, x_label, y_label, y_lim = False):
 
 
     # Make a data frame
@@ -77,6 +77,12 @@ def gen_plot(title, x, a, b, a_legend, b_legend, x_label, y_label):
 
     # style
     plt.style.use('seaborn-darkgrid')
+
+    if y_lim:
+        loc, labels = plt.yticks()
+
+        # This sets your y-ticks to the specified range at whole number intervals
+        plt.yticks(np.arange(25, 45, step=2))
 
     # create a color palette
     palette = plt.get_cmap('Set1')
@@ -123,7 +129,44 @@ def gen_plot_one(title, x, a, x_label, y_label, y_legned, right = False, y_lim =
         plt.plot(df['x'], df[column], marker='o', color=palette(num), linewidth=1, alpha=0.9, label=column)
 
     # Add legend
-    plt.legend(loc=2, ncol=2)
+    plt.legend(ncol=2, loc = 2)
+    if right:
+        plt.xticks(rotation=45)
+
+    # Add titles
+    plt.title(title, loc='left', fontsize=12, fontweight=0, color='orange')
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+
+    plt.savefig(title)
+    plt.close()
+
+
+def gen_bar_one(title, x, a, x_label, y_label, y_legned, right = False, y_lim = False):
+
+
+    # Make a data frame
+    df=pd.DataFrame({'x': x, y_legned: a})
+
+    # style
+    plt.style.use('seaborn-darkgrid')
+
+    if y_lim:
+        plt.ylim(-1, 1)
+
+    # create a color palette
+    palette = plt.get_cmap('Set1')
+
+    # multiple line plot
+
+    num=0
+    for column in df.drop('x', axis=1):
+        num+=1
+        plt.xticks(rotation=45)
+        plt.bar(df['x'], df[column], color=palette(num), label=column)
+
+    # Add legend
+    plt.legend(ncol=2, loc = 2)
     if right:
         plt.xticks(rotation=45)
 
@@ -164,6 +207,8 @@ def get_ave_table(dict_list):
 
     return ave_table, x
 
+
+
 if __name__ == "__main__":
 
     phog_probe_succeed = 0
@@ -202,7 +247,20 @@ if __name__ == "__main__":
     fail_txt.close()
     
 
-    for i in all_trained_data:
+    for question_idx, i in enumerate(all_trained_data):
+        try:
+            current_train = ReadSL(trained_data + i)
+            attrs = current_train.get_attrs()
+            q_input, q_output = attrs[-2], attrs[-1]
+            f = open('%s%s' % (current_path, "result.txt"), 'a')
+            f.write("\n")
+            f.write("question:%d\n" %(question_idx))
+            for j in range(len(q_input)):
+                a, b = q_input[j], q_output[j]
+                f.write("%s ===> %s\n"%(a,b))
+            f.close()
+        except:
+            pass
 
         pass_phog_probe = False
         pass_probe = False
@@ -215,6 +273,14 @@ if __name__ == "__main__":
             obj = pickle.load(f)
             (solution, num_eval_1, time_usage_1, solution_size_1,
              current_distri_1, init_distri_1) = obj
+            f.close()
+
+            f = open('%s%s' % (current_path, "result.txt"), 'a')
+            f.write("phog_probe\n")
+            f.write("solution: " + solution + "\n")
+            f.write("num_eval: " + str(num_eval_1) + "\n")
+            f.write("time usage: " + str(time_usage_1) + "\n")
+            f.write("solution_size: " + str(solution_size_1) + "\n")
             f.close()
 
             phog_probe_succeed += 1
@@ -239,6 +305,14 @@ if __name__ == "__main__":
             obj = pickle.load(f)
             (solution, num_eval_2, time_usage_2, solution_size_2,
              current_distri_2, init_distri_2) = obj
+            f.close()
+
+            f = open('%s%s' % (current_path, "result.txt"), 'a')
+            f.write("probe\n")
+            f.write("solution: " + solution + "\n")
+            f.write("num_eval: " + str(num_eval_2) + "\n")
+            f.write("time usage: " + str(time_usage_2) + "\n")
+            f.write("solution_size: " + str(solution_size_2) + "\n")
             f.close()
 
             probe_succeed += 1
@@ -274,9 +348,9 @@ if __name__ == "__main__":
     x_label = "Program index"
     y_label = "Proportion"
     y_legned = ">0: probe more than phog_probe <0: phog_probe more than probe"
-    gen_plot_one(title, x, y, x_label, y_label, y_legned, y_lim=True)
+    gen_bar_one(title, x, y, x_label, y_label, y_legned, y_lim=True)
 
-    time_interval = [60, 120, 180, 240, 300]
+    time_interval = [120, 240, 360, 480, 600]
     phog_probe_interval_count = []
     probe_interval_count = []
     # fig 2
@@ -288,25 +362,25 @@ if __name__ == "__main__":
             for k in i:
                 if k<=j:
                     count+=1
-                    i.remove(k)
+                    # i.remove(k)
             if step == 0:
                 phog_probe_interval_count.append(count)
             elif step == 1:
                 probe_interval_count.append(count)
 
-    phog_probe_interval_count.append(phog_probe_fail)
-    probe_interval_count.append(probe_fail)
+    # phog_probe_interval_count.append(phog_probe_fail)
+    # probe_interval_count.append(probe_fail)
 
     title = "Time vs Program Solved"
-    x = ["<1min", "1min-2min", "2min-3min", "3min-4min",
-                 "4min-5min", ">5min"]
+    x = ["<2min", "<4min", "<6min", "<8min",
+                 "<10min"]
     a = phog_probe_interval_count
     b = probe_interval_count
     a_legend = "phog_probe"
     b_legend = "probe"
     x_label = "Time interval"
     y_label = "Number of programs"
-    gen_plot(title, x, a, b, a_legend, b_legend, x_label, y_label)
+    gen_plot(title, x, a, b, a_legend, b_legend, x_label, y_label, y_lim=True)
 
     #  fig 3
     title = "Size vs Time Usage"
@@ -349,7 +423,7 @@ if __name__ == "__main__":
     table = np.sum(table,axis=1)
     
     title = "phog_probe Average Sum of Distribution Changed"
-    gen_plot_one(title, x, table, x_label, y_label, y_legned, right=True)
+    gen_bar_one(title, x, table, x_label, y_label, y_legned, right=True)
 
     # fig 6
     
@@ -369,6 +443,5 @@ if __name__ == "__main__":
     title = "probe Average Distribution Changed"
     y_legned = "probe"
 
-    gen_plot_one(title, x, probe_after, x_label, y_label, y_legned, right=True)
-    
+    gen_bar_one(title, x, probe_after, x_label, y_label, y_legned, right=True)
     

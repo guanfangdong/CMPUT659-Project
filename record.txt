@@ -1,18 +1,18 @@
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/11604909.sl
-300.4017016887665
+635.5958008766174
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/12948338.sl
-322.05357456207275
+641.2606072425842
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/12948338.sl
-313.6776292324066
+639.6262893676758
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/17212077.sl
-327.2789318561554
+642.5184636116028
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/17212077.sl
-364.0568103790283
+600.0256760120392
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/19558979.sl
 0.0
@@ -21,331 +21,316 @@ I:\CMPUT659\Project\code/benchmarks/string/train/19558979.sl
 0.0
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/23435880.sl
-322.29165482521057
+643.993070602417
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/31753108.sl
-306.62352108955383
+641.8220796585083
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/31753108.sl
-300.0073823928833
+600.0177400112152
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/33619752.sl
-300.0009329319
+600.0008754730225
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/35016216.sl
-300.00688672065735
+600.0013720989227
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/35016216.sl
-303.15797114372253
-error on phog_probe
-I:\CMPUT659\Project\code/benchmarks/string/train/36462127.sl
-312.2496449947357
+603.320601940155
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/37281007.sl
-309.21809482574463
+611.0988683700562
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/37281007.sl
-300.0049021244049
+600.0083162784576
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/37534494.sl
-300.00192642211914
+619.1553907394409
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/37534494.sl
-302.12133145332336
+606.344215631485
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/38871714.sl
-318.3077862262726
+614.4146263599396
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/38871714.sl
-300.0470621585846
+600.1218998432159
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/39060015.sl
-314.19594836235046
+607.3694472312927
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/39060015.sl
-319.70204067230225
+617.9818558692932
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/41503046.sl
-313.3195171356201
+611.3429009914398
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/43120683.sl
-300.04110956192017
+603.6330809593201
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/43120683.sl
-308.2980155944824
+600.5682997703552
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/44789427.sl
-0.013392210006713867
+0.0004961490631103516
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/44789427.sl
 0.0004963874816894531
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/add-a-line-break-with-a-formula.sl
-300.0163097381592
+836.7871475219727
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/add-a-line-break-with-a-formula.sl
-302.38371658325195
+609.265157699585
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/bikes-long-repeat.sl
-0.02033543586730957
+0.009423017501831055
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/bikes-long-repeat.sl
 0.0
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/bikes-long.sl
-0.0034720897674560547
+0.0059528350830078125
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/bikes-long.sl
-0.0
+0.0004954338073730469
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/bikes.sl
-0.00347137451171875
+0.012896299362182617
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/bikes.sl
 0.0
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/bikes_small.sl
-0.00049591064453125
+0.0
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/bikes_small.sl
-0.0
+0.0004961490631103516
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-all-of-many-things.sl
-308.91752004623413
+602.0181057453156
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-all-of-many-things.sl
-300.00391006469727
+660.7896032333374
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-one-of-many-things.sl
-307.85409665107727
+605.6180725097656
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-one-of-many-things.sl
-300.00391006469727
+672.4530351161957
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-one-of-many-with-exclusions.sl
-308.7571337223053
+639.6342253684998
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-one-of-many-with-exclusions.sl
-335.40042996406555
+603.9609372615814
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-some-words-but-not-others.sl
-303.9714117050171
+606.5803108215332
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-some-words-but-not-others.sl
-300.00143027305603
+600.002364397049
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-specific-text.sl
-302.707603931427
+603.6707768440247
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-contains-specific-text.sl
-338.981547832489
+600.0078206062317
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/cell-equals-one-of-many-things.sl
-302.97700333595276
+600.1893556118011
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/clean-and-reformat-telephone-numbers.sl
-300.00638937950134
+610.4029812812805
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/clean-and-reformat-telephone-numbers.sl
-300.1680860519409
+600.1600921154022
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/compare-two-strings.sl
-311.39305424690247
+600.0013720989227
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/compare-two-strings.sl
-324.5489490032196
+600.0053398609161
 error on phog_probe
-I:\CMPUT659\Project\code/benchmarks/string/train/convert-numbers-to-text.sl
-0.015376091003417969
-error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/convert-numbers-to-text.sl
 0.0004961490631103516
+error on probe
+I:\CMPUT659\Project\code/benchmarks/string/train/convert-numbers-to-text.sl
+0.0004954338073730469
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-consecutive-monthly-orders.sl
-300.2866475582123
+601.1094350814819
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-consecutive-monthly-orders.sl
-300.0018608570099
+600.0018680095673
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-line-breaks-in-cell.sl
-329.0422966480255
+616.0271208286285
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-specific-characters-in-a-cell.sl
-309.2905116081238
+639.731440782547
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-specific-characters-in-a-cell.sl
-306.69345688819885
+600.0068278312683
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-specific-words-in-a-cell.sl
-303.12870812416077
+623.5618517398834
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-specific-words-in-a-cell.sl
-329.2475538253784
+600.008811712265
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-total-words-in-a-cell.sl
-315.28466725349426
+659.1017160415649
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/count-total-words-in-a-cell.sl
-300.00291752815247
+612.7078950405121
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/create-email-address-from-name.sl
-300.0063896179199
+661.770690202713
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/create-email-address-from-name.sl
-302.3321325778961
+608.5905985832214
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/create-email-address-with-name-and-domain.sl
-300.0058937072754
+648.3717555999756
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/create-email-address-with-name-and-domain.sl
-302.3390769958496
+606.8917987346649
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/dr-name-long-repeat.sl
-0.024799823760986328
+0.005951642990112305
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/dr-name-long-repeat.sl
 0.0
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/dr-name-long.sl
-0.003967761993408203
+0.003968000411987305
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/dr-name-long.sl
 0.0
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/dr-name.sl
-0.0034716129302978516
+0.003968000411987305
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/dr-name.sl
-0.0004963874816894531
+0.0
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/dr-name_small.sl
-0.00049591064453125
+0.0009918212890625
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/dr-name_small.sl
 0.0
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/exceljet1.sl
-357.9753592014313
+600.0048434734344
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/exceljet1.sl
-304.10681915283203
+603.9837539196014
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/exceljet3.sl
-311.24921464920044
+600.5643310546875
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/exceljet4.sl
-328.4147708415985
+627.0467510223389
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/extract-nth-word-from-text-string.sl
-0.029263973236083984
+0.005455970764160156
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/extract-nth-word-from-text-string.sl
-0.0004961490631103516
-error on phog_probe
-I:\CMPUT659\Project\code/benchmarks/string/train/extract-word-containing-specific-text.sl
-315.7811632156372
+0.00049591064453125
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/extract-word-that-begins-with-specific-character.sl
-331.65364837646484
+612.3785469532013
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/extract-word-that-begins-with-specific-character.sl
-324.8009169101715
+600.0217082500458
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-domain-from-email-address_2.sl
-357.1023998260498
+600.0212111473083
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-domain-from-email-address_2.sl
-304.08797121047974
+603.818089723587
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-domain-name-from-url.sl
-304.11525106430054
+612.7798118591309
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-domain-name-from-url.sl
-300.0024223327637
+600.0068278312683
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-first-name-from-name-with-comma.sl
-0.05406379699707031
+0.01339268684387207
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-first-name-from-name-with-comma.sl
 0.0
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-last-line-in-cell.sl
-302.4109959602356
+613.6458320617676
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-last-line-in-cell.sl
-300.00143027305603
+722.691351890564
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-last-name-from-name-with-comma.sl
-336.77484464645386
+600.7691793441772
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-last-name-from-name-with-comma.sl
-303.70009994506836
+600.0018680095673
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-last-word.sl
-300.3764057159424
+610.9088997840881
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/get-middle-name-from-full-name.sl
-309.0975682735443
+602.2393217086792
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/remove-characters-from-left.sl
-0.006448268890380859
+0.01735997200012207
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/remove-characters-from-left.sl
-0.0
+0.0004963874816894531
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/remove-leading-and-trailing-spaces-from-text.sl
-300.00066351890564
+600.0003793239594
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/remove-text-by-position.sl
-300.00539779663086
+607.8986775875092
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/remove-text-by-position.sl
-301.9898931980133
+670.6738843917847
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/remove-unwanted-characters.sl
-316.94577074050903
+610.4342288970947
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/remove-unwanted-characters.sl
-300.00638937950134
+620.6562857627869
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow1.sl
-304.00017833709717
+600.0003793239594
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow10.sl
-300.1086504459381
+605.5496234893799
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow10.sl
-300.00490522384644
+600.004073381424
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow11.sl
-307.25294494628906
+624.2294678688049
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow4.sl
-300.00589418411255
+1092.5639476776123
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow4.sl
-302.9030284881592
+908.9703421592712
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow6.sl
-315.28020429611206
+607.4557509422302
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow7.sl
-319.1127932071686
-error on probe
-I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow7.sl
-303.92181062698364
-error on phog_probe
-I:\CMPUT659\Project\code/benchmarks/string/train/stackoverflow9.sl
-330.10513710975647
+604.1479291915894
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/strip-non-numeric-characters.sl
-301.3540210723877
+642.9559342861176
 error on probe
 I:\CMPUT659\Project\code/benchmarks/string/train/strip-non-numeric-characters.sl
-350.6420032978058
+716.660493850708
 error on phog_probe
 I:\CMPUT659\Project\code/benchmarks/string/train/strip-numeric-characters-from-cell.sl
-310.0037593841553
-error on probe
-I:\CMPUT659\Project\code/benchmarks/string/train/strip-numeric-characters-from-cell.sl
-339.27121114730835
+607.270247220993

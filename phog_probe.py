@@ -395,7 +395,7 @@ def phog_probe_solver(file_path):
     str_var, str_, int_var, int_, input, output = f.get_attrs()
 
     bound = 10000
-    max_time = 300
+    max_time = 600
     io_list = []
 
     for step, i in enumerate(input):
